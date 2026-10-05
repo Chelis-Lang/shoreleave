@@ -1,0 +1,18 @@
+[project]
+name = "bed-holidays-sync"
+version = "0.1.0"
+description = "Sync generator for the bed-holidays Chelis package"
+requires-python = ">=3.11"
+dependencies = [
+    "truststore>=0.10.4",
+]
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

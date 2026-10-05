@@ -1,0 +1,17 @@
+schema = "1"
+
+[package]
+name = "bed-holidays"
+version = "2026.1005.0"
+
+[[dependencies]]
+name = "chelis-std"
+version = "0.4.0"
+compiler = "=0.18.13"
+archive_sha256 = "a228408de79e81910546d998122ecfc32fbe4880ac3b7719d5ca6cfbcf448261"
+shell_sha256 = "c01bcf3dab032e02c70679d358768048bfeb0f4f6b732923586759f7d0633081"
+
+[dependencies.source]
+kind = "bundled"
+compiler_version = "0.18.13"
+

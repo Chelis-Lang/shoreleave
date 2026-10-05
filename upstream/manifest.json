@@ -1,0 +1,50 @@
+{
+  "england_and_wales": {
+    "url": "https://www.gov.uk/bank-holidays.json",
+    "retrieved": "2026-10-05",
+    "file": "england_and_wales.json",
+    "sha256": "538b3482c28b85ecd2db606a0d5ae6ad17248900b6498700ce0a48d26a3ecde6"
+  },
+  "hong_kong": {
+    "url": "https://www.1823.gov.hk/common/ical/en.json",
+    "retrieved": "2026-10-05",
+    "file": "hong_kong.json",
+    "sha256": "8d797fb380825eec3f53fe456cc85ad30e2f91635675081abb671eca3bfd757d"
+  },
+  "japan_bank": {
+    "url": "https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv",
+    "retrieved": "2026-10-05",
+    "file": "japan_bank.csv",
+    "sha256": "cec37a743c96995cdb9cb52b685c9003634682a9b0e1a640a6b9b96881fe964a"
+  },
+  "new_south_wales": {
+    "url": "https://www.nsw.gov.au/about-nsw/public-holidays",
+    "retrieved": "2026-10-05",
+    "file": "new_south_wales.html",
+    "sha256": "f4332a5a07f05e96e0531b137621f31593101e110a137ca720c4e8a813cbb9c1"
+  },
+  "nyse": {
+    "url": "https://www.nyse.com/markets/hours-calendars",
+    "retrieved": "2026-10-05",
+    "file": "nyse.html",
+    "sha256": "79602f7be5a8f1d39c2b1cac4dd02c4c07f18cf9f92d70602834069154719bad"
+  },
+  "sifma": {
+    "url": "https://www.sifma.org/resources/general/holiday-schedule/",
+    "retrieved": "2026-10-05",
+    "file": "sifma.html",
+    "sha256": "67b51cff36d8049e52a02769403f9b4c36202e1420bb8cc56b0fe5413088921b"
+  },
+  "target": {
+    "url": "https://www.ecb.europa.eu/ecb/contacts/working-hours/html/index.en.html",
+    "retrieved": "2026-10-05",
+    "file": "target.html",
+    "sha256": "ee7ee2d44a95ca77b1ab742a8b55f75748034498e460826fad460affbbf15be3"
+  },
+  "us_federal": {
+    "url": "https://www.opm.gov/policy-data-oversight/pay-leave/federal-holidays/",
+    "retrieved": "2026-10-05",
+    "file": "us_federal.html",
+    "sha256": "bb4eed76a256e58a1f0f1b3074eeef5f381b2def722ff101efb04fefeb192e60"
+  }
+}

@@ -10,3 +10,6 @@ reef.lock.tmp
 __pycache__/
 *.pyc
 .pytest_cache/
+.reef-write.lock
+.*.reef-tmp-*
+.*.reef-backup-*
