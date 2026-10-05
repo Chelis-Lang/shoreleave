@@ -34,5 +34,28 @@ jobs:
         run: chelis reef conform audit
       - name: Pin-bump guard
         run: chelis reef conform bump-check --base origin/main
+      - name: Format and lint
+        run: |
+          set -euo pipefail
+          for f in src/*.ch src/published/*.ch testsupport/*.ch demos/*.ch tests/*.ch tests_neg/*/*.ch; do
+            chelis fmt --check "$f"
+          done
+          chelis lint --check src/ testsupport/ demos/ tests/ tests_neg/
+      - name: Calendar tests
+        run: chelis test tests/
       - name: Negative tests
         run: chelis test tests_neg/ --expect neg
+      - name: Evaluator and compiled C agree
+        run: |
+          set -euo pipefail
+          chelis eval --file demos/digest.ch > "$RUNNER_TEMP/eval.txt"
+          chelis build demos/digest.ch -o "$RUNNER_TEMP/digest"
+          "$RUNNER_TEMP/digest/digest" > "$RUNNER_TEMP/c.txt"
+          diff "$RUNNER_TEMP/eval.txt" "$RUNNER_TEMP/c.txt"
+      - uses: astral-sh/setup-uv@v6
+      - name: Sync generator tests
+        working-directory: sync
+        run: uv run --frozen --python 3.11 pytest -q
+      - name: Generated modules match the pinned snapshots
+        working-directory: sync
+        run: uv run --frozen --python 3.11 python -m bed_holidays_sync check

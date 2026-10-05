@@ -9,6 +9,10 @@ that span fails `domain` (or returns `None` from a `try_` form) instead of guess
 outside any program, synced from its upstream on the upstream's schedule. Each
 `bed` package lives in its own repository and is versioned by its data.
 
+[`docs/CALENDARS.md`](docs/CALENDARS.md) lists the calendars, their sources and
+horizons, what each projection omits, the provenance values, and how to regenerate
+the data.
+
 ## Toolchain
 
 The package pins its compiler in `reef.toml`. Install that toolchain with
