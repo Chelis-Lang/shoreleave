@@ -13,7 +13,7 @@ import json
 import re
 from typing import Any
 
-from tides_sync.model import EarlyClose, Holiday, Published, parse_month_day, published_years, require_names, single_part
+from shoreleave_sync.model import EarlyClose, Holiday, Published, parse_month_day, published_years, require_names, single_part
 
 SECTION = "U.S. Holiday Recommendations"
 # The US cards' names, without the "2025/2026" a New Year card carries. The page

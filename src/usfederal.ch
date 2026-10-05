@@ -1,8 +1,8 @@
-module Tides.UsFederal
+module Shoreleave.UsFederal
 import Std.Datetime (Date, Monday, Thursday, date)
 import Std.Datetime.Business (Weekmask, BusinessCalendar, business_calendar)
-import Tides.Rules (projected_calendar, try_projected_calendar, monday_to_friday, saturday_back_sunday_forward, nth_weekday, last_weekday)
-import Tides.Published.UsFederal (us_federal_published_holidays, us_federal_published_from, us_federal_published_until, us_federal_published_source, us_federal_published_source_urls, us_federal_published_retrieved, us_federal_published_sha256s)
+import Shoreleave.Rules (projected_calendar, try_projected_calendar, monday_to_friday, saturday_back_sunday_forward, nth_weekday, last_weekday)
+import Shoreleave.Published.UsFederal (us_federal_published_holidays, us_federal_published_from, us_federal_published_until, us_federal_published_source, us_federal_published_source_urls, us_federal_published_retrieved, us_federal_published_sha256s)
 export (us_federal, us_federal_projected, try_us_federal_projected, us_federal_rule_holidays, us_federal_weekmask, us_federal_projection_last_year, us_federal_source, us_federal_source_urls, us_federal_retrieved, us_federal_snapshot_sha256s)
 -- US federal holidays on a Monday to Friday week: the legal public holidays
 -- (5 U.S.C. 6103(a)) on the days OPM's holiday feed lists them as observed for most

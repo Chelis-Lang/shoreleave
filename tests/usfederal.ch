@@ -1,11 +1,11 @@
-module Tides.Tests.UsFederal
+module Shoreleave.Tests.UsFederal
 import Std.Datetime (Date, date)
 import Std.Datetime.Business (is_business_day, try_is_business_day, business_calendar_valid_from, business_calendar_valid_until)
 import Std.Test (assert_eq)
-import Tides.UsFederal (us_federal, us_federal_projected, try_us_federal_projected, us_federal_rule_holidays, us_federal_weekmask, us_federal_source, us_federal_source_urls)
-import Tides.Published.UsFederal (us_federal_published_holidays)
-import Tides.Rules (contains_day)
-import Tides.TestSupport.Support (normalized_year, observed_rule_days, diff_text, mismatches_by_year, holidays_of, all_closed)
+import Shoreleave.UsFederal (us_federal, us_federal_projected, try_us_federal_projected, us_federal_rule_holidays, us_federal_weekmask, us_federal_source, us_federal_source_urls)
+import Shoreleave.Published.UsFederal (us_federal_published_holidays)
+import Shoreleave.Rules (contains_day)
+import Shoreleave.TestSupport.Support (normalized_year, observed_rule_days, diff_text, mismatches_by_year, holidays_of, all_closed)
 def published_year(year: i64) -> List[Date] = normalized_year(us_federal_weekmask(), us_federal_published_holidays(), year)
 def rule_year(year: i64) -> List[Date] = observed_rule_days(us_federal_weekmask(), us_federal_rule_holidays, year)
 def test_horizon_is_the_published_span() -> unit ! { Test } = {

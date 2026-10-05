@@ -5,7 +5,7 @@ from __future__ import annotations
 import datetime
 import json
 
-from tides_sync.model import Holiday, Published, published_years, require_names, single_part
+from shoreleave_sync.model import Holiday, Published, published_years, require_names, single_part
 
 
 NAMES = frozenset(

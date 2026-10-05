@@ -14,9 +14,9 @@ from __future__ import annotations
 import datetime
 import re
 
-from tides_sync import rules
-from tides_sync.html_tables import tables
-from tides_sync.model import Exclusion, Holiday, Published, parse_day_month_year, published_years, require_names, single_part
+from shoreleave_sync import rules
+from shoreleave_sync.html_tables import tables
+from shoreleave_sync.model import Exclusion, Holiday, Published, parse_day_month_year, published_years, require_names, single_part
 
 NAMES = frozenset(
     {

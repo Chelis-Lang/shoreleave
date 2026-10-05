@@ -10,9 +10,9 @@ the marked days are exactly the rule's days and every row's name is known.
 
 from __future__ import annotations
 
-from tides_sync import rules
-from tides_sync.html_tables import tables
-from tides_sync.model import Exclusion, Holiday, Published, parse_day_month_year, published_years, require_names, single_part
+from shoreleave_sync import rules
+from shoreleave_sync.html_tables import tables
+from shoreleave_sync.model import Exclusion, Holiday, Published, parse_day_month_year, published_years, require_names, single_part
 
 CLOSING_DAY_NAMES = frozenset({"New Year's Day", "Good Friday", "Easter Monday", "Labour Day", "Christmas Day", "Christmas Holiday"})
 # ECB office holidays that are not TARGET closing days.

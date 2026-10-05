@@ -9,8 +9,8 @@ import pathlib
 import re
 import sys
 
-from tides_sync import emit, snapshot
-from tides_sync.sources import SOURCES
+from shoreleave_sync import emit, snapshot
+from shoreleave_sync.sources import SOURCES
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 
@@ -47,7 +47,7 @@ def generated_files(root: pathlib.Path) -> dict[pathlib.Path, str]:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(prog="tides_sync")
+    parser = argparse.ArgumentParser(prog="shoreleave_sync")
     parser.add_argument("--root", type=pathlib.Path, default=ROOT)
     commands = parser.add_subparsers(dest="command", required=True)
     fetch = commands.add_parser("fetch", help="download and pin fresh snapshots")

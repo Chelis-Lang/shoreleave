@@ -1,7 +1,7 @@
-module Tides.TestSupport.Support
+module Shoreleave.TestSupport.Support
 import Std.Datetime (Date, date, date_epoch_day, date_to_string)
 import Std.Datetime.Business (Weekmask, BusinessCalendar, business_calendar, business_calendar_holidays, is_business_day)
-import Tides.Rules (contains_day, days_in_year, joined)
+import Shoreleave.Rules (contains_day, days_in_year, joined)
 export (normalized_year, observed_rule_days, difference, days_text, diff_text, holidays_of, mismatches_by_year, all_closed)
 -- Shared helpers for the calendar tests.
 -- The days of `days` in `year` that are business weekdays under `weekmask`,

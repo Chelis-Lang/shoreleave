@@ -1,8 +1,8 @@
-module Tides.JapanBank
+module Shoreleave.JapanBank
 import Std.Datetime (Date, Monday, date, date_add_days)
 import Std.Datetime.Business (Weekmask, BusinessCalendar, business_calendar)
-import Tides.Rules (projected_calendar, try_projected_calendar, monday_to_friday, nth_weekday, is_sunday, contains_day)
-import Tides.Published.JapanBank (japan_bank_published_holidays, japan_bank_published_from, japan_bank_published_until, japan_bank_published_source, japan_bank_published_source_urls, japan_bank_published_retrieved, japan_bank_published_sha256s)
+import Shoreleave.Rules (projected_calendar, try_projected_calendar, monday_to_friday, nth_weekday, is_sunday, contains_day)
+import Shoreleave.Published.JapanBank (japan_bank_published_holidays, japan_bank_published_from, japan_bank_published_until, japan_bank_published_source, japan_bank_published_source_urls, japan_bank_published_retrieved, japan_bank_published_sha256s)
 export (japan_bank, japan_bank_projected, try_japan_bank_projected, japan_bank_rule_holidays, japan_bank_weekmask, japan_bank_projection_last_year, japan_bank_source, japan_bank_source_urls, japan_bank_retrieved, japan_bank_snapshot_sha256s, japan_vernal_equinox_day, japan_autumnal_equinox_day, japan_national_holidays)
 -- Japanese bank holidays on a Monday to Friday week: the national holidays the
 -- Cabinet Office publishes, with their substitute and citizen's holidays, plus the

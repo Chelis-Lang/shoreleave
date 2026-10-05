@@ -1,7 +1,7 @@
 # Calendars
 
 Each calendar is a `Std.Datetime.Business` `BusinessCalendar` produced by a nullary
-function, and each has a named projection. Import them from `Tides.<Module>`.
+function, and each has a named projection. Import them from `Shoreleave.<Module>`.
 
 | Producer | Module | Source | Weekmask | Published horizon |
 |---|---|---|---|---|
@@ -80,7 +80,7 @@ cover, and name the exact days by which an announced, declared or lunar year dif
 Each calendar module exposes `<calendar>_source()` (the publishing authorities),
 `<calendar>_source_urls()`, `<calendar>_retrieved()` (the retrieval date of its
 oldest document, a `Date`) and `<calendar>_snapshot_sha256s()` (the SHA-256 of each
-stored upstream document, in the order of the URLs). `Tides.Provenance.tides_version()`
+stored upstream document, in the order of the URLs). `Shoreleave.Provenance.shoreleave_version()`
 returns the package version.
 
 Every fetched document is stored under `upstream/<calendar>/`, and
@@ -106,10 +106,10 @@ The generator under `sync/` is a uv project:
 
 ```sh
 cd sync
-uv run python -m tides_sync fetch            # refresh every snapshot (network)
-uv run python -m tides_sync fetch nyse       # or only some
-uv run python -m tides_sync generate         # rewrite src/published/, src/provenance.ch and the parse listings
-uv run python -m tides_sync check            # fail when a generated file is stale
+uv run python -m shoreleave_sync fetch            # refresh every snapshot (network)
+uv run python -m shoreleave_sync fetch nyse       # or only some
+uv run python -m shoreleave_sync generate         # rewrite src/published/, src/provenance.ch and the parse listings
+uv run python -m shoreleave_sync check            # fail when a generated file is stale
 uv run pytest
 ```
 

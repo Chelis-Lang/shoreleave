@@ -1,10 +1,10 @@
-module Tides.Tests.Sifma
+module Shoreleave.Tests.Sifma
 import Std.Datetime (Date, date)
 import Std.Datetime.Business (is_business_day, try_is_business_day, business_calendar_valid_from, business_calendar_valid_until)
 import Std.Test (assert_eq)
-import Tides.Sifma (sifma, sifma_projected, try_sifma_projected, sifma_rule_holidays, sifma_weekmask, sifma_source_urls)
-import Tides.Published.Sifma (sifma_published_holidays)
-import Tides.TestSupport.Support (normalized_year, observed_rule_days, diff_text, holidays_of, all_closed)
+import Shoreleave.Sifma (sifma, sifma_projected, try_sifma_projected, sifma_rule_holidays, sifma_weekmask, sifma_source_urls)
+import Shoreleave.Published.Sifma (sifma_published_holidays)
+import Shoreleave.TestSupport.Support (normalized_year, observed_rule_days, diff_text, holidays_of, all_closed)
 def published_year(year: i64) -> List[Date] = normalized_year(sifma_weekmask(), sifma_published_holidays(), year)
 def rule_year(year: i64) -> List[Date] = observed_rule_days(sifma_weekmask(), sifma_rule_holidays, year)
 def test_horizon_is_the_published_span() -> unit ! { Test } = {

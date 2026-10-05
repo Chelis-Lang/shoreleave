@@ -11,10 +11,10 @@ import subprocess
 
 import pytest
 
-from tides_sync import __main__ as cli
-from tides_sync import emit, snapshot
-from tides_sync.model import Published
-from tides_sync.sources import SOURCES
+from shoreleave_sync import __main__ as cli
+from shoreleave_sync import emit, snapshot
+from shoreleave_sync.model import Published
+from shoreleave_sync.sources import SOURCES
 from conftest import ROOT, UPSTREAM
 
 DATE = re.compile(r"date\((-?\d+)i64, (\d+)i64, (\d+)i64\)")

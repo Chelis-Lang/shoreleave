@@ -1,16 +1,16 @@
-module Tides.Demos.Digest
+module Shoreleave.Demos.Digest
 import Std.Datetime (Date, date, date_add_days, date_to_string)
 import Std.Datetime.Business (BusinessCalendar, ModifiedFollowing, RollStartForward, try_is_business_day, business_calendar_holidays, business_calendar_valid_from, business_calendar_valid_until, business_day_count, business_day_offset, business_day_roll)
-import Tides.Rules (joined)
-import Tides.EnglandAndWales (england_and_wales, england_and_wales_projected, try_england_and_wales_projected)
-import Tides.UsFederal (us_federal, us_federal_projected)
-import Tides.JapanBank (japan_bank, japan_bank_projected, try_japan_bank_projected)
-import Tides.NewSouthWales (new_south_wales, new_south_wales_projected)
-import Tides.HongKong (hong_kong, hong_kong_projected)
-import Tides.Nyse (nyse, nyse_projected)
-import Tides.Sifma (sifma, sifma_projected)
-import Tides.Target (target, target_projected)
-import Tides.Provenance (tides_version)
+import Shoreleave.Rules (joined)
+import Shoreleave.EnglandAndWales (england_and_wales, england_and_wales_projected, try_england_and_wales_projected)
+import Shoreleave.UsFederal (us_federal, us_federal_projected)
+import Shoreleave.JapanBank (japan_bank, japan_bank_projected, try_japan_bank_projected)
+import Shoreleave.NewSouthWales (new_south_wales, new_south_wales_projected)
+import Shoreleave.HongKong (hong_kong, hong_kong_projected)
+import Shoreleave.Nyse (nyse, nyse_projected)
+import Shoreleave.Sifma (sifma, sifma_projected)
+import Shoreleave.Target (target, target_projected)
+import Shoreleave.Provenance (shoreleave_version)
 -- One line per calendar: its horizon, holiday count, business days over the whole
 -- horizon, the 100th business day after its first day, and a modified-following
 -- roll of the last 25 December it covers. `chelis eval --file` and the executable
@@ -20,7 +20,7 @@ def digest(name: string, cal: BusinessCalendar) -> string = {
   last = business_calendar_valid_until(cal)
   joined([name, " ", date_to_string(first), "..", date_to_string(last), " holidays=", to_string(len(business_calendar_holidays(cal))), " business_days=", to_string(business_day_count(cal, first, date_add_days(last, 1i64))), " day100=", date_to_string(business_day_offset(cal, first, 100i64, RollStartForward)), " christmas_roll=", date_to_string(business_day_roll(cal, date_add_days(last, -6i64), ModifiedFollowing))])
 }
-version = tides_version()
+version = shoreleave_version()
 england_and_wales_digest = digest("england_and_wales", england_and_wales())
 england_and_wales_projected_digest = digest("england_and_wales_projected", england_and_wales_projected(2040i64))
 us_federal_digest = digest("us_federal", us_federal())

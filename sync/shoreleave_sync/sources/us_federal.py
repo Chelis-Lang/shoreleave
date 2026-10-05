@@ -21,7 +21,7 @@ import dataclasses
 import datetime
 import re
 
-from tides_sync.model import Exclusion, Holiday, Part, Published, Source, check_weekday, parse_month_day, published_years, require_names
+from shoreleave_sync.model import Exclusion, Holiday, Part, Published, Source, check_weekday, parse_month_day, published_years, require_names
 
 OPM_URL = "https://www.opm.gov/policy-data-oversight/pay-leave/federal-holidays/holidays.ics"
 NAMES = frozenset(

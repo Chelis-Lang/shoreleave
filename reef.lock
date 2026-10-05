@@ -1,7 +1,7 @@
 schema = "1"
 
 [package]
-name = "tides"
+name = "shoreleave"
 version = "2026.1005.0"
 
 [[dependencies]]

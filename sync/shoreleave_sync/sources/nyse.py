@@ -10,8 +10,8 @@ from __future__ import annotations
 
 import re
 
-from tides_sync.html_tables import tables, text_blocks
-from tides_sync.model import EarlyClose, Holiday, Published, parse_month_day, published_years, require_names, single_part
+from shoreleave_sync.html_tables import tables, text_blocks
+from shoreleave_sync.model import EarlyClose, Holiday, Published, parse_month_day, published_years, require_names, single_part
 
 NAMES = frozenset(
     {

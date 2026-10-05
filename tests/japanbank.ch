@@ -1,11 +1,11 @@
-module Tides.Tests.JapanBank
+module Shoreleave.Tests.JapanBank
 import Std.Datetime (Date, date)
 import Std.Datetime.Business (is_business_day, try_is_business_day, business_calendar_valid_from, business_calendar_valid_until)
 import Std.Test (assert_eq)
-import Tides.JapanBank (japan_bank, japan_bank_projected, try_japan_bank_projected, japan_bank_rule_holidays, japan_bank_weekmask, japan_bank_source_urls, japan_vernal_equinox_day, japan_autumnal_equinox_day)
-import Tides.Published.JapanBank (japan_bank_published_holidays)
-import Tides.Rules (contains_day, joined)
-import Tides.TestSupport.Support (normalized_year, observed_rule_days, diff_text, mismatches_by_year, holidays_of, all_closed)
+import Shoreleave.JapanBank (japan_bank, japan_bank_projected, try_japan_bank_projected, japan_bank_rule_holidays, japan_bank_weekmask, japan_bank_source_urls, japan_vernal_equinox_day, japan_autumnal_equinox_day)
+import Shoreleave.Published.JapanBank (japan_bank_published_holidays)
+import Shoreleave.Rules (contains_day, joined)
+import Shoreleave.TestSupport.Support (normalized_year, observed_rule_days, diff_text, mismatches_by_year, holidays_of, all_closed)
 def test_horizon_starts_with_the_saturday_closure() -> unit ! { Test } = {
   cal = japan_bank()
   _ = assert_eq(business_calendar_valid_from(cal), date(1990i64, 1i64, 1i64), "valid_from")

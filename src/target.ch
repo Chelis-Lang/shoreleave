@@ -1,8 +1,8 @@
-module Tides.Target
+module Shoreleave.Target
 import Std.Datetime (Date, date)
 import Std.Datetime.Business (Weekmask, BusinessCalendar, business_calendar)
-import Tides.Rules (projected_calendar, try_projected_calendar, monday_to_friday, good_friday, easter_monday)
-import Tides.Published.Target (target_published_holidays, target_published_from, target_published_until, target_published_source, target_published_source_urls, target_published_retrieved, target_published_sha256s)
+import Shoreleave.Rules (projected_calendar, try_projected_calendar, monday_to_friday, good_friday, easter_monday)
+import Shoreleave.Published.Target (target_published_holidays, target_published_from, target_published_until, target_published_source, target_published_source_urls, target_published_retrieved, target_published_sha256s)
 export (target, target_projected, try_target_projected, target_rule_holidays, target_weekmask, target_projection_last_year, target_source, target_source_urls, target_retrieved, target_snapshot_sha256s)
 -- TARGET closing days on a Monday to Friday week: 1 January, Good Friday, Easter
 -- Monday, 1 May, 25 December and 26 December (Governing Council decision of

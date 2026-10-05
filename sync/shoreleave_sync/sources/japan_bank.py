@@ -14,7 +14,7 @@ import csv
 import datetime
 import io
 
-from tides_sync.model import Holiday, Published, published_years, require_names, single_part
+from shoreleave_sync.model import Holiday, Published, published_years, require_names, single_part
 
 FIRST_YEAR = 1990
 # The Cabinet Office's names: the national holidays, 休日 for a substitute or

@@ -1,8 +1,8 @@
-module Tides.HongKong
+module Shoreleave.HongKong
 import Std.Datetime (Date, date)
 import Std.Datetime.Business (Weekmask, BusinessCalendar, business_calendar)
-import Tides.Rules (projected_calendar, try_projected_calendar, monday_to_saturday, sunday_forward_to_monday, is_saturday, is_sunday, good_friday, easter_saturday, easter_monday)
-import Tides.Published.HongKong (hong_kong_published_holidays, hong_kong_published_from, hong_kong_published_until, hong_kong_published_source, hong_kong_published_source_urls, hong_kong_published_retrieved, hong_kong_published_sha256s)
+import Shoreleave.Rules (projected_calendar, try_projected_calendar, monday_to_saturday, sunday_forward_to_monday, is_saturday, is_sunday, good_friday, easter_saturday, easter_monday)
+import Shoreleave.Published.HongKong (hong_kong_published_holidays, hong_kong_published_from, hong_kong_published_until, hong_kong_published_source, hong_kong_published_source_urls, hong_kong_published_retrieved, hong_kong_published_sha256s)
 export (hong_kong, hong_kong_projected, try_hong_kong_projected, hong_kong_rule_holidays, hong_kong_weekmask, hong_kong_projection_last_year, hong_kong_source, hong_kong_source_urls, hong_kong_retrieved, hong_kong_snapshot_sha256s)
 -- Hong Kong general holidays, as the 1823 government feed publishes them, on a
 -- Monday to Saturday week: every Sunday is a general holiday, and Saturday is not

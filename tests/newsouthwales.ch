@@ -1,11 +1,11 @@
-module Tides.Tests.NewSouthWales
+module Shoreleave.Tests.NewSouthWales
 import Std.Datetime (Date, date)
 import Std.Datetime.Business (is_business_day, try_is_business_day, business_calendar_valid_from, business_calendar_valid_until)
 import Std.Test (assert_eq)
-import Tides.NewSouthWales (new_south_wales, new_south_wales_projected, try_new_south_wales_projected, new_south_wales_rule_holidays, new_south_wales_weekmask, new_south_wales_source_urls)
-import Tides.Published.NewSouthWales (new_south_wales_published_holidays)
-import Tides.Rules (contains_day)
-import Tides.TestSupport.Support (normalized_year, observed_rule_days, diff_text, holidays_of, all_closed)
+import Shoreleave.NewSouthWales (new_south_wales, new_south_wales_projected, try_new_south_wales_projected, new_south_wales_rule_holidays, new_south_wales_weekmask, new_south_wales_source_urls)
+import Shoreleave.Published.NewSouthWales (new_south_wales_published_holidays)
+import Shoreleave.Rules (contains_day)
+import Shoreleave.TestSupport.Support (normalized_year, observed_rule_days, diff_text, holidays_of, all_closed)
 def test_horizon_is_the_published_span() -> unit ! { Test } = {
   cal = new_south_wales()
   _ = assert_eq(business_calendar_valid_from(cal), date(2026i64, 1i64, 1i64), "valid_from")

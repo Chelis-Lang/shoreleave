@@ -1,11 +1,11 @@
-module Tides.Tests.Nyse
+module Shoreleave.Tests.Nyse
 import Std.Datetime (Date, date)
 import Std.Datetime.Business (is_business_day, try_is_business_day, business_calendar_valid_from, business_calendar_valid_until)
 import Std.Test (assert_eq)
-import Tides.Nyse (nyse, nyse_projected, try_nyse_projected, nyse_rule_holidays, nyse_weekmask, nyse_source_urls)
-import Tides.Published.Nyse (nyse_published_holidays)
-import Tides.Rules (contains_day)
-import Tides.TestSupport.Support (mismatches_by_year, holidays_of, all_closed)
+import Shoreleave.Nyse (nyse, nyse_projected, try_nyse_projected, nyse_rule_holidays, nyse_weekmask, nyse_source_urls)
+import Shoreleave.Published.Nyse (nyse_published_holidays)
+import Shoreleave.Rules (contains_day)
+import Shoreleave.TestSupport.Support (mismatches_by_year, holidays_of, all_closed)
 def test_horizon_is_the_published_span() -> unit ! { Test } = {
   cal = nyse()
   _ = assert_eq(business_calendar_valid_from(cal), date(2026i64, 1i64, 1i64), "valid_from")

@@ -4,9 +4,9 @@ import pathlib
 
 import pytest
 
-from tides_sync import snapshot
-from tides_sync.model import Published
-from tides_sync.sources import SOURCES
+from shoreleave_sync import snapshot
+from shoreleave_sync.model import Published
+from shoreleave_sync.sources import SOURCES
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 UPSTREAM = ROOT / "upstream"

@@ -1,8 +1,8 @@
-# tides, a Chelis shell
+# shoreleave, a Chelis shell
 
 ## Repo Identity
 
-`tides` gives Chelis programs the business-day calendars that legislatures,
+`shoreleave` gives Chelis programs the business-day calendars that legislatures,
 governments and exchanges publish, as `Std.Datetime.Business` `BusinessCalendar`
 values. A program can roll, offset and count business days against a jurisdiction's
 or market's real holidays, with each calendar answering only inside the span its

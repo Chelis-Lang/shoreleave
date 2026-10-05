@@ -1,7 +1,7 @@
 [project]
-name = "tides-sync"
+name = "shoreleave-sync"
 version = "0.1.0"
-description = "Sync generator for the tides Chelis package"
+description = "Sync generator for the shoreleave Chelis package"
 requires-python = ">=3.11"
 dependencies = [
     "truststore>=0.10.4",

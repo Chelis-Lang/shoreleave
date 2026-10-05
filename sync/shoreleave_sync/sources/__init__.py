@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from tides_sync.model import Source
-from tides_sync.sources import (
+from shoreleave_sync.model import Source
+from shoreleave_sync.sources import (
     england_and_wales,
     hong_kong,
     japan_bank,

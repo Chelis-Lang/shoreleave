@@ -1,8 +1,8 @@
-module Tides.Nyse
+module Shoreleave.Nyse
 import Std.Datetime (Date, Monday, Thursday, date)
 import Std.Datetime.Business (Weekmask, BusinessCalendar, business_calendar)
-import Tides.Rules (projected_calendar, try_projected_calendar, monday_to_friday, saturday_back_sunday_forward, sunday_forward_to_monday, is_saturday, nth_weekday, last_weekday, good_friday)
-import Tides.Published.Nyse (nyse_published_holidays, nyse_published_from, nyse_published_until, nyse_published_source, nyse_published_source_urls, nyse_published_retrieved, nyse_published_sha256s)
+import Shoreleave.Rules (projected_calendar, try_projected_calendar, monday_to_friday, saturday_back_sunday_forward, sunday_forward_to_monday, is_saturday, nth_weekday, last_weekday, good_friday)
+import Shoreleave.Published.Nyse (nyse_published_holidays, nyse_published_from, nyse_published_until, nyse_published_source, nyse_published_source_urls, nyse_published_retrieved, nyse_published_sha256s)
 export (nyse, nyse_projected, try_nyse_projected, nyse_rule_holidays, nyse_weekmask, nyse_projection_last_year, nyse_source, nyse_source_urls, nyse_retrieved, nyse_snapshot_sha256s)
 -- New York Stock Exchange full-day closures, as nyse.com publishes them, on a
 -- Monday to Friday week. Early closes are trading days. Under NYSE Rule 7.2 a

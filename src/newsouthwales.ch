@@ -1,8 +1,8 @@
-module Tides.NewSouthWales
+module Shoreleave.NewSouthWales
 import Std.Datetime (Date, Monday, date, easter_sunday_gregorian)
 import Std.Datetime.Business (Weekmask, BusinessCalendar, business_calendar)
-import Tides.Rules (projected_calendar, try_projected_calendar, monday_to_friday, new_year_with_additional_day, weekend_forward_to_monday, good_friday, easter_saturday, easter_monday, nth_weekday, christmas_and_boxing_with_additional_days)
-import Tides.Published.NewSouthWales (new_south_wales_published_holidays, new_south_wales_published_from, new_south_wales_published_until, new_south_wales_published_source, new_south_wales_published_source_urls, new_south_wales_published_retrieved, new_south_wales_published_sha256s)
+import Shoreleave.Rules (projected_calendar, try_projected_calendar, monday_to_friday, new_year_with_additional_day, weekend_forward_to_monday, good_friday, easter_saturday, easter_monday, nth_weekday, christmas_and_boxing_with_additional_days)
+import Shoreleave.Published.NewSouthWales (new_south_wales_published_holidays, new_south_wales_published_from, new_south_wales_published_until, new_south_wales_published_source, new_south_wales_published_source_urls, new_south_wales_published_retrieved, new_south_wales_published_sha256s)
 export (new_south_wales, new_south_wales_projected, try_new_south_wales_projected, new_south_wales_rule_holidays, new_south_wales_weekmask, new_south_wales_projection_last_year, new_south_wales_source, new_south_wales_source_urls, new_south_wales_retrieved, new_south_wales_snapshot_sha256s)
 -- New South Wales public holidays on a Monday to Friday week. The standard holidays
 -- are those of the Public Holidays Act 2010, section 4: 1 January, Australia Day,

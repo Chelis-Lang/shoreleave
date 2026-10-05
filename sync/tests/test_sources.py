@@ -9,9 +9,9 @@ import re
 import pytest
 
 from conftest import parse_one, raw_parts, raw_snapshot
-from tides_sync import rules
-from tides_sync.model import Published
-from tides_sync.sources import SOURCES, new_south_wales, sifma
+from shoreleave_sync import rules
+from shoreleave_sync.model import Published
+from shoreleave_sync.sources import SOURCES, new_south_wales, sifma
 
 D = datetime.date
 

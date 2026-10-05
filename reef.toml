@@ -1,9 +1,9 @@
 schema = "3"
 
 [package]
-name = "tides"
+name = "shoreleave"
 version = "2026.1005.0"
 compiler = "=0.18.13"
-module_prefix = "Tides"
+module_prefix = "Shoreleave"
 resolver = "2"
 additional_sources = ["testsupport", "demos"]

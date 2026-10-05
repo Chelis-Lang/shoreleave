@@ -1,8 +1,8 @@
-module Tides.Sifma
+module Shoreleave.Sifma
 import Std.Datetime (Date, Monday, Thursday, date)
 import Std.Datetime.Business (Weekmask, BusinessCalendar, business_calendar)
-import Tides.Rules (projected_calendar, try_projected_calendar, monday_to_friday, saturday_back_sunday_forward, sunday_forward_to_monday, is_saturday, is_weekend, nth_weekday, last_weekday)
-import Tides.Published.Sifma (sifma_published_holidays, sifma_published_from, sifma_published_until, sifma_published_source, sifma_published_source_urls, sifma_published_retrieved, sifma_published_sha256s)
+import Shoreleave.Rules (projected_calendar, try_projected_calendar, monday_to_friday, saturday_back_sunday_forward, sunday_forward_to_monday, is_saturday, is_weekend, nth_weekday, last_weekday)
+import Shoreleave.Published.Sifma (sifma_published_holidays, sifma_published_from, sifma_published_until, sifma_published_source, sifma_published_source_urls, sifma_published_retrieved, sifma_published_sha256s)
 export (sifma, sifma_projected, try_sifma_projected, sifma_rule_holidays, sifma_weekmask, sifma_projection_last_year, sifma_source, sifma_source_urls, sifma_retrieved, sifma_snapshot_sha256s)
 -- The full-day closes SIFMA recommends for the US bond market, on a Monday to
 -- Friday week. Early closes are trading days. SIFMA decides each year whether Good

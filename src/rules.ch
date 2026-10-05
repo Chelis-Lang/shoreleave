@@ -1,4 +1,4 @@
-module Tides.Rules
+module Shoreleave.Rules
 import Std.Datetime (Date, Weekday, Monday, Saturday, Sunday, date, date_year, date_weekday, date_add_days, date_epoch_day, weekday_iso_number, nth_weekday_in_month, last_weekday_in_month, weekday_on_or_after, easter_sunday_gregorian)
 import Std.Datetime.Business (Weekmask, BusinessCalendar, business_calendar, try_business_calendar)
 export (monday_to_friday, monday_to_saturday, nth_weekday, last_weekday, is_saturday, is_sunday, is_weekend, good_friday, easter_saturday, easter_monday, saturday_back_sunday_forward, weekend_forward_to_monday, sunday_forward_to_monday, new_year_with_additional_day, christmas_and_boxing_with_additional_days, contains_day, days_in_year, joined, projection_problem, projected_calendar, try_projected_calendar)

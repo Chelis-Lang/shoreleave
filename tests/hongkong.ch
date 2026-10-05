@@ -1,10 +1,10 @@
-module Tides.Tests.HongKong
+module Shoreleave.Tests.HongKong
 import Std.Datetime (Date, date)
 import Std.Datetime.Business (is_business_day, try_is_business_day, business_calendar_valid_from, business_calendar_valid_until, business_calendar_weekmask)
 import Std.Test (assert_eq)
-import Tides.HongKong (hong_kong, hong_kong_projected, try_hong_kong_projected, hong_kong_rule_holidays, hong_kong_weekmask, hong_kong_source_urls)
-import Tides.Published.HongKong (hong_kong_published_holidays)
-import Tides.TestSupport.Support (normalized_year, observed_rule_days, diff_text, holidays_of, all_closed)
+import Shoreleave.HongKong (hong_kong, hong_kong_projected, try_hong_kong_projected, hong_kong_rule_holidays, hong_kong_weekmask, hong_kong_source_urls)
+import Shoreleave.Published.HongKong (hong_kong_published_holidays)
+import Shoreleave.TestSupport.Support (normalized_year, observed_rule_days, diff_text, holidays_of, all_closed)
 def published_year(year: i64) -> List[Date] = normalized_year(hong_kong_weekmask(), hong_kong_published_holidays(), year)
 def rule_year(year: i64) -> List[Date] = observed_rule_days(hong_kong_weekmask(), hong_kong_rule_holidays, year)
 def test_horizon_is_the_published_span() -> unit ! { Test } = {
