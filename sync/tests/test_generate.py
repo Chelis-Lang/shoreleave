@@ -47,9 +47,9 @@ def test_manifest_records_every_part_of_every_source() -> None:
             assert entry["url"] == part.url
 
 
-def test_package_version_follows_the_newest_retrieval() -> None:
-    snaps = [snap for s in SOURCES.values() for snap in snapshot.load(UPSTREAM, s)[0].values()]
-    assert cli.package_version(ROOT).startswith(cli.expected_version_prefix(snaps))
+def test_package_version_is_plain_semver() -> None:
+    assert re.fullmatch(r"\d+\.\d+\.\d+", cli.package_version(ROOT))
+    assert 'def shoreleave_version() -> string = "0.1.0"' in (ROOT / "src" / "provenance.ch").read_text(encoding="utf-8")
 
 
 # Negative twins.
@@ -74,12 +74,12 @@ def test_stale_module_is_reported(tmp_path) -> None:
     assert cli.main(["--root", str(tmp_path), "check"]) == 1
 
 
-def test_version_not_from_the_newest_retrieval_is_rejected(tmp_path) -> None:
+def test_date_based_version_is_rejected(tmp_path) -> None:
     for name in ("upstream", "src"):
         shutil.copytree(ROOT / name, tmp_path / name)
     reef = (ROOT / "reef.toml").read_text(encoding="utf-8")
-    (tmp_path / "reef.toml").write_text(re.sub(r'(?m)^version = ".*"', 'version = "2025.101.0"', reef), encoding="utf-8")
-    with pytest.raises(ValueError, match="newest retrieval date"):
+    (tmp_path / "reef.toml").write_text(re.sub(r'(?m)^version = ".*"', 'version = "2026.1005.0-1"', reef), encoding="utf-8")
+    with pytest.raises(ValueError, match="not a plain MAJOR.MINOR.PATCH"):
         cli.generated_files(tmp_path)
 
 

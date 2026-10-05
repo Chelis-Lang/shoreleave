@@ -1,0 +1,68 @@
+name: release
+# A `vX.Y.Z` tag builds the package and attaches the two assets reef resolver 2
+# discovers, `shoreleave-X.Y.Z.tar.zst` and `shoreleave-X.Y.Z.chb`, to the
+# tag's GitHub release. A manual run builds and checks them without publishing.
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  CHELIS_TAG: v0.18.13
+  CHELIS_VERSION: 0.18.13
+  PACKAGE_NAME: shoreleave
+
+jobs:
+  build-reef-assets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      # Chelis-Lang/chelis is private: CHELIS_RELEASE_TOKEN has contents: read on
+      # it and installs the release toolchain. Publishing uses the default token.
+      - name: Bootstrap chelisup
+        env:
+          GH_TOKEN: ${{ secrets.CHELIS_RELEASE_TOKEN }}
+        run: |
+          set -euo pipefail
+          gh release download "$CHELIS_TAG" --repo Chelis-Lang/chelis --pattern chelisup.sh --output - | sh
+          echo "$HOME/.chelis/bin" >> "$GITHUB_PATH"
+      - name: Install chelis toolchain
+        env:
+          GITHUB_TOKEN: ${{ secrets.CHELIS_RELEASE_TOKEN }}
+        run: chelisup install 0.18.13
+      - name: Verify toolchain
+        run: test "$(chelis --version)" = "chelis ${CHELIS_VERSION}"
+      - name: Read the package version
+        run: |
+          set -euo pipefail
+          version="$(grep -oP '^version\s*=\s*"\K[0-9]+\.[0-9]+\.[0-9]+(?=")' reef.toml | head -1)"
+          test -n "$version"
+          echo "PACKAGE_VERSION=$version" >> "$GITHUB_ENV"
+      - name: The tag names the package version
+        if: github.event_name == 'push'
+        run: test "${GITHUB_REF_NAME}" = "v${PACKAGE_VERSION}"
+      - name: Gate the release
+        run: |
+          set -euo pipefail
+          chelis reef conform audit
+          chelis test tests/
+          chelis test tests_neg/ --expect neg
+      - name: Build reef assets
+        run: chelis reef build --no-auto-fetch
+      - name: Verify release assets
+        run: |
+          test -f "dist/${PACKAGE_NAME}-${PACKAGE_VERSION}.tar.zst"
+          test -f "dist/${PACKAGE_NAME}-${PACKAGE_VERSION}.chb"
+      - name: Publish GitHub release
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/${{ env.PACKAGE_NAME }}-${{ env.PACKAGE_VERSION }}.tar.zst
+            dist/${{ env.PACKAGE_NAME }}-${{ env.PACKAGE_VERSION }}.chb
+          generate_release_notes: true
+          fail_on_unmatched_files: true

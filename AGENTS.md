@@ -10,7 +10,7 @@ source publishes and naming that source and its retrieval date. Extending a cale
 past its published years is a separately named projection, so a projected answer is
 always visible in the program text. The data is synced from upstream by a tested
 generator under `sync/`; the package is one of the `bed` packages of external data,
-each in its own repository and versioned by its upstream, not by the compiler.
+each in its own repository with its own semantic version, independent of the compiler's.
 
 ## Data and generator
 

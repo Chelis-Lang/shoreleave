@@ -106,9 +106,8 @@ of another calendar sharing the page, or a new kind of entry, stops regeneration
 instead of entering the calendar. It also checks every weekday the source names
 against its date.
 
-The package version is `YYYY.MMDD.N`: the newest retrieval date, then a counter for
-releases of the same data, such as one for a new compiler pin. The generator refuses
-a version whose date part is not the newest retrieval date.
+The package version is a plain semantic version, independent of both the compiler's
+version and the data's dates; each calendar's data date is its `<calendar>_retrieved()`.
 
 ## Regenerating
 
@@ -116,15 +115,36 @@ The generator under `sync/` is a uv project:
 
 ```sh
 cd sync
-uv run python -m shoreleave_sync fetch            # refresh every snapshot (network)
+uv run python -m shoreleave_sync fetch            # re-fetch every source (network)
 uv run python -m shoreleave_sync fetch nyse       # or only some
 uv run python -m shoreleave_sync generate         # rewrite src/published/, src/provenance.ch and the parse listings
 uv run python -m shoreleave_sync check            # fail when a generated file is stale
 uv run pytest
 ```
 
-`fetch` parses each document before storing it, so a source whose page changes shape
-fails loudly instead of yielding fewer holidays. After a fetch, set the package
-version to the new retrieval date, regenerate, review the listing diff, and run the
-Chelis tests: a changed published year that no longer matches the rules shows up
-there by name.
+`fetch` tries every source and parses each document before storing it, so a source
+whose page changes shape, names an unknown holiday or carries a Tentative entry fails
+loudly instead of yielding fewer holidays; it reports every failing source and exits
+non-zero. A source whose fresh documents parse to exactly the entries of its pinned
+snapshot keeps that snapshot and its retrieval date, so a page that changes only a
+timestamp or its layout produces no change; `fetch --force` re-pins regardless.
+
+After a fetch that changes entries, regenerate, review the listing diff, bump the
+package version, and run the Chelis tests: a changed published year that no longer
+matches the rules shows up there by name, and a test that pins a horizon or a count
+needs its new value.
+
+## Weekly sync and releases
+
+The `weekly sync` workflow runs every Monday and on demand. It fetches and
+regenerates as above. When any calendar's entries changed, it runs the tests and opens
+or updates the `sync/weekly` pull request, whose body lists the changed listing lines
+and the test outcome. When a source fails, the run fails and opens or comments on the
+"Weekly sync failed" issue. It uses the default token for the pull request and the
+issue, so the repository must allow GitHub Actions to create pull requests; a pull
+request opened that way does not start CI until it is closed and reopened.
+
+Pushing a `vX.Y.Z` tag that equals the `reef.toml` version runs the `release`
+workflow: it gates on the audit and the tests, builds the package with
+`chelis reef build`, and attaches `shoreleave-X.Y.Z.tar.zst` and `shoreleave-X.Y.Z.chb`
+to the release, the assets reef's resolver discovers.
