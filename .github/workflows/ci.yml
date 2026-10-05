@@ -12,6 +12,8 @@ env:
 jobs:
   gate:
     runs-on: ubuntu-latest
+    # Chelis-Lang/chelis is private: CHELIS_RELEASE_TOKEN is a token with
+    # contents: read on it, which installs the release toolchain.
     steps:
       - uses: actions/checkout@v6
         with:
@@ -21,14 +23,14 @@ jobs:
           fetch-depth: 0
       - name: Bootstrap chelisup
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.CHELIS_RELEASE_TOKEN }}
         run: |
           set -euo pipefail
           gh release download "$CHELIS_TAG" --repo Chelis-Lang/chelis --pattern chelisup.sh --output - | sh
           echo "$HOME/.chelis/bin" >> "$GITHUB_PATH"
       - name: Install chelis toolchain
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.CHELIS_RELEASE_TOKEN }}
         run: chelisup install 0.18.13
       - name: Conformance audit
         run: chelis reef conform audit

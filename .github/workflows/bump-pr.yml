@@ -23,14 +23,14 @@ jobs:
           echo "version=${latest}" >> "$GITHUB_OUTPUT"
       - name: Bootstrap chelisup
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.CHELIS_RELEASE_TOKEN }}
         run: |
           set -euo pipefail
           gh release download "v${{ steps.latest.outputs.version }}" --repo Chelis-Lang/chelis --pattern chelisup.sh --output - | sh
           echo "$HOME/.chelis/bin" >> "$GITHUB_PATH"
       - name: Install chelis toolchain
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.CHELIS_RELEASE_TOKEN }}
         run: chelisup install "${{ steps.latest.outputs.version }}"
       - name: Run the Pin Bump Checklist
         run: chelis reef conform bump "${{ steps.latest.outputs.version }}"
