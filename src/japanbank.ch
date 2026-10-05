@@ -1,9 +1,9 @@
-module BedHolidays.JapanBank
+module Tides.JapanBank
 import Std.Datetime (Date, Monday, date, date_add_days)
 import Std.Datetime.Business (Weekmask, BusinessCalendar, business_calendar)
-import BedHolidays.Rules (projected_calendar, try_projected_calendar, monday_to_friday, nth_weekday, is_sunday, contains_day)
-import BedHolidays.Published.JapanBank (japan_bank_published_holidays, japan_bank_published_from, japan_bank_published_until, japan_bank_published_source, japan_bank_published_source_url, japan_bank_published_retrieved, japan_bank_published_sha256)
-export (japan_bank, japan_bank_projected, try_japan_bank_projected, japan_bank_rule_holidays, japan_bank_weekmask, japan_bank_projection_last_year, japan_bank_source, japan_bank_source_url, japan_bank_retrieved, japan_bank_snapshot_sha256, japan_vernal_equinox_day, japan_autumnal_equinox_day, japan_national_holidays)
+import Tides.Rules (projected_calendar, try_projected_calendar, monday_to_friday, nth_weekday, is_sunday, contains_day)
+import Tides.Published.JapanBank (japan_bank_published_holidays, japan_bank_published_from, japan_bank_published_until, japan_bank_published_source, japan_bank_published_source_urls, japan_bank_published_retrieved, japan_bank_published_sha256s)
+export (japan_bank, japan_bank_projected, try_japan_bank_projected, japan_bank_rule_holidays, japan_bank_weekmask, japan_bank_projection_last_year, japan_bank_source, japan_bank_source_urls, japan_bank_retrieved, japan_bank_snapshot_sha256s, japan_vernal_equinox_day, japan_autumnal_equinox_day, japan_national_holidays)
 -- Japanese bank holidays on a Monday to Friday week: the national holidays the
 -- Cabinet Office publishes, with their substitute and citizen's holidays, plus the
 -- bank closures of 31 December and 2 and 3 January (Banking Act Enforcement Order,
@@ -48,6 +48,6 @@ def japan_bank_projection_last_year() -> i64 = 2099i64
 def japan_bank_projected(until_year: i64) -> BusinessCalendar = projected_calendar("japan_bank_projected", japan_bank_weekmask(), japan_bank_published_holidays(), japan_bank_published_from(), japan_bank_published_until(), japan_bank_rule_holidays, until_year, japan_bank_projection_last_year())
 def try_japan_bank_projected(until_year: i64) -> Option[BusinessCalendar] = try_projected_calendar(japan_bank_weekmask(), japan_bank_published_holidays(), japan_bank_published_from(), japan_bank_published_until(), japan_bank_rule_holidays, until_year, japan_bank_projection_last_year())
 def japan_bank_source() -> string = japan_bank_published_source()
-def japan_bank_source_url() -> string = japan_bank_published_source_url()
+def japan_bank_source_urls() -> List[string] = japan_bank_published_source_urls()
 def japan_bank_retrieved() -> Date = japan_bank_published_retrieved()
-def japan_bank_snapshot_sha256() -> string = japan_bank_published_sha256()
+def japan_bank_snapshot_sha256s() -> List[string] = japan_bank_published_sha256s()

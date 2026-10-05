@@ -1,10 +1,10 @@
-module BedHolidays.Tests.HongKong
+module Tides.Tests.HongKong
 import Std.Datetime (Date, date)
 import Std.Datetime.Business (is_business_day, try_is_business_day, business_calendar_valid_from, business_calendar_valid_until, business_calendar_weekmask)
 import Std.Test (assert_eq)
-import BedHolidays.HongKong (hong_kong, hong_kong_projected, try_hong_kong_projected, hong_kong_rule_holidays, hong_kong_weekmask, hong_kong_source_url)
-import BedHolidays.Published.HongKong (hong_kong_published_holidays)
-import BedHolidays.TestSupport.Support (normalized_year, observed_rule_days, diff_text, holidays_of, all_closed)
+import Tides.HongKong (hong_kong, hong_kong_projected, try_hong_kong_projected, hong_kong_rule_holidays, hong_kong_weekmask, hong_kong_source_urls)
+import Tides.Published.HongKong (hong_kong_published_holidays)
+import Tides.TestSupport.Support (normalized_year, observed_rule_days, diff_text, holidays_of, all_closed)
 def published_year(year: i64) -> List[Date] = normalized_year(hong_kong_weekmask(), hong_kong_published_holidays(), year)
 def rule_year(year: i64) -> List[Date] = observed_rule_days(hong_kong_weekmask(), hong_kong_rule_holidays, year)
 def test_horizon_is_the_published_span() -> unit ! { Test } = {
@@ -12,7 +12,7 @@ def test_horizon_is_the_published_span() -> unit ! { Test } = {
   _ = assert_eq(business_calendar_valid_from(cal), date(2025i64, 1i64, 1i64), "valid_from")
   _ = assert_eq(business_calendar_valid_until(cal), date(2027i64, 12i64, 31i64), "valid_until")
   _ = assert_eq(business_calendar_weekmask(cal).saturday, true, "Saturday is not a general holiday")
-  assert_eq(hong_kong_source_url(), "https://www.1823.gov.hk/common/ical/en.json", "url")
+  assert_eq(index(hong_kong_source_urls(), 0i64), "https://www.1823.gov.hk/common/ical/en.json", "url")
 }
 def test_every_published_holiday_is_closed() -> unit ! { Test } = {
   cal = hong_kong()
@@ -29,6 +29,8 @@ def test_rules_omit_exactly_lunar_and_solar_term_holidays() -> unit ! { Test } =
 }
 def test_sunday_and_saturday_rules() -> unit ! { Test } = {
   cal = hong_kong()
+  _ = assert_eq(is_business_day(cal, date(2026i64, 4i64, 6i64)), false, "2026: the day following Ching Ming, a Sunday")
+  _ = assert_eq(is_business_day(cal, date(2026i64, 4i64, 7i64)), false, "2026: the day following Easter Monday, pushed on by the Ching Ming substitute")
   _ = assert_eq(is_business_day(cal, date(2027i64, 2i64, 9i64)), false, "2027: the fourth day of Lunar New Year replaces the Sunday second day")
   _ = assert_eq(is_business_day(cal, date(2027i64, 5i64, 1i64)), false, "a Saturday holiday closes Saturday")
   _ = assert_eq(is_business_day(cal, date(2027i64, 12i64, 27i64)), false, "2027: Saturday Christmas, first weekday after it is Monday 27th")

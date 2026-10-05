@@ -1,10 +1,10 @@
-module BedHolidays.Tests.EnglandAndWales
+module Tides.Tests.EnglandAndWales
 import Std.Datetime (Date, date)
 import Std.Datetime.Business (is_business_day, try_is_business_day, business_calendar_valid_from, business_calendar_valid_until)
 import Std.Test (assert_eq)
-import BedHolidays.EnglandAndWales (england_and_wales, england_and_wales_projected, try_england_and_wales_projected, england_and_wales_rule_holidays, england_and_wales_weekmask, england_and_wales_source, england_and_wales_source_url, england_and_wales_retrieved)
-import BedHolidays.Published.EnglandAndWales (england_and_wales_published_holidays)
-import BedHolidays.TestSupport.Support (normalized_year, observed_rule_days, diff_text, holidays_of)
+import Tides.EnglandAndWales (england_and_wales, england_and_wales_projected, try_england_and_wales_projected, england_and_wales_rule_holidays, england_and_wales_weekmask, england_and_wales_source, england_and_wales_source_urls, england_and_wales_retrieved)
+import Tides.Published.EnglandAndWales (england_and_wales_published_holidays)
+import Tides.TestSupport.Support (normalized_year, observed_rule_days, diff_text, holidays_of)
 def published_year(year: i64) -> List[Date] = normalized_year(england_and_wales_weekmask(), england_and_wales_published_holidays(), year)
 def rule_year(year: i64) -> List[Date] = observed_rule_days(england_and_wales_weekmask(), england_and_wales_rule_holidays, year)
 def test_horizon_is_the_published_span() -> unit ! { Test } = {
@@ -19,7 +19,7 @@ def test_every_published_weekday_holiday_is_closed() -> unit ! { Test } = {
 }
 def test_provenance() -> unit ! { Test } = {
   _ = assert_eq(england_and_wales_source(), "UK Government Digital Service, gov.uk bank holidays", "source")
-  _ = assert_eq(england_and_wales_source_url(), "https://www.gov.uk/bank-holidays.json", "url")
+  _ = assert_eq(index(england_and_wales_source_urls(), 0i64), "https://www.gov.uk/bank-holidays.json", "url")
   assert_eq(england_and_wales_retrieved(), date(2026i64, 10i64, 5i64), "retrieved")
 }
 def test_rules_match_every_unproclaimed_published_year() -> unit ! { Test } = {

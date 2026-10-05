@@ -1,0 +1,32 @@
+# new_south_wales: NSW Government, public holidays (Public Holidays Act 2010)
+# horizon 2026-01-01..2027-12-31
+# main: https://www.nsw.gov.au/about-nsw/public-holidays retrieved 2026-10-05 sha256 f4332a5a07f05e96e0531b137621f31593101e110a137ca720c4e8a813cbb9c1
+2026-01-01	holiday	New Year's Day
+2026-01-26	holiday	Australia Day
+2026-04-03	holiday	Good Friday
+2026-04-04	holiday	Easter Saturday
+2026-04-05	holiday	Easter Sunday
+2026-04-06	holiday	Easter Monday
+2026-04-25	holiday	Anzac Day
+2026-04-27	holiday	Additional Day
+2026-06-08	holiday	King's Birthday
+2026-08-03	excluded	Bank Holiday (not a declared public holiday)
+2026-10-05	holiday	Labour Day
+2026-12-25	holiday	Christmas Day
+2026-12-26	holiday	Boxing Day
+2026-12-28	holiday	Additional Day
+2027-01-01	holiday	New Year's Day
+2027-01-26	holiday	Australia Day
+2027-03-26	holiday	Good Friday
+2027-03-27	holiday	Easter Saturday
+2027-03-28	holiday	Easter Sunday
+2027-03-29	holiday	Easter Monday
+2027-04-25	holiday	Anzac Day
+2027-04-26	holiday	Additional Day
+2027-06-14	holiday	King's Birthday
+2027-08-02	excluded	Bank Holiday (not a declared public holiday)
+2027-10-04	holiday	Labour Day
+2027-12-25	holiday	Christmas Day
+2027-12-26	holiday	Boxing Day
+2027-12-27	holiday	Additional Day
+2027-12-28	holiday	Additional Day

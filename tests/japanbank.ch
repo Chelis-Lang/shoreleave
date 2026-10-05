@@ -1,16 +1,16 @@
-module BedHolidays.Tests.JapanBank
+module Tides.Tests.JapanBank
 import Std.Datetime (Date, date)
 import Std.Datetime.Business (is_business_day, try_is_business_day, business_calendar_valid_from, business_calendar_valid_until)
 import Std.Test (assert_eq)
-import BedHolidays.JapanBank (japan_bank, japan_bank_projected, try_japan_bank_projected, japan_bank_rule_holidays, japan_bank_weekmask, japan_bank_source_url, japan_vernal_equinox_day, japan_autumnal_equinox_day)
-import BedHolidays.Published.JapanBank (japan_bank_published_holidays)
-import BedHolidays.Rules (contains_day, joined)
-import BedHolidays.TestSupport.Support (normalized_year, observed_rule_days, diff_text, mismatches_by_year, holidays_of, all_closed)
+import Tides.JapanBank (japan_bank, japan_bank_projected, try_japan_bank_projected, japan_bank_rule_holidays, japan_bank_weekmask, japan_bank_source_urls, japan_vernal_equinox_day, japan_autumnal_equinox_day)
+import Tides.Published.JapanBank (japan_bank_published_holidays)
+import Tides.Rules (contains_day, joined)
+import Tides.TestSupport.Support (normalized_year, observed_rule_days, diff_text, mismatches_by_year, holidays_of, all_closed)
 def test_horizon_starts_with_the_saturday_closure() -> unit ! { Test } = {
   cal = japan_bank()
   _ = assert_eq(business_calendar_valid_from(cal), date(1990i64, 1i64, 1i64), "valid_from")
   _ = assert_eq(business_calendar_valid_until(cal), date(2027i64, 12i64, 31i64), "valid_until")
-  assert_eq(japan_bank_source_url(), "https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv", "url")
+  assert_eq(index(japan_bank_source_urls(), 0i64), "https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv", "url")
 }
 def test_every_published_holiday_is_closed() -> unit ! { Test } = assert_eq(all_closed(japan_bank(), japan_bank_published_holidays()), true, "no published holiday is a business day")
 -- The equinox formula gives the published equinox day in every year of the horizon.

@@ -14,9 +14,19 @@ import csv
 import datetime
 import io
 
-from bed_holidays_sync.model import Holiday, Published, Source, published_years
+from tides_sync.model import Holiday, Published, published_years, require_names, single_part
 
 FIRST_YEAR = 1990
+# The Cabinet Office's names: the national holidays, 休日 for a substitute or
+# citizen's holiday, and the days made holidays for one year by statute.
+NAMES = frozenset(
+    {
+        "元日", "成人の日", "建国記念の日", "天皇誕生日", "春分の日", "昭和の日", "みどりの日",
+        "憲法記念日", "こどもの日", "海の日", "山の日", "敬老の日", "秋分の日", "体育の日",
+        "スポーツの日", "体育の日（スポーツの日）", "文化の日", "勤労感謝の日", "休日",
+        "休日（祝日扱い）", "即位礼正殿の儀", "結婚の儀",
+    }
+)
 YEAR_END_CLOSURE = "Bank closure (Banking Act Enforcement Order, art. 5)"
 
 
@@ -46,13 +56,14 @@ def parse(raw: bytes) -> Published:
     closures = [closure for year in years for closure in year_end_closures(year)]
     # The national list before 1990 is published but outside this calendar's horizon.
     in_horizon = [h for h in national if h.day.year >= FIRST_YEAR]
+    require_names([h.name for h in in_horizon], NAMES, "Cabinet Office syukujitsu.csv")
     return published_years(in_horizon + closures, FIRST_YEAR, last_year)
 
 
-SOURCE = Source(
-    key="japan_bank",
-    authority="Cabinet Office, Government of Japan, national holidays (syukujitsu.csv)",
-    url="https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv",
-    suffix="csv",
-    parse=parse,
+SOURCE = single_part(
+    "japan_bank",
+    "Cabinet Office, Government of Japan, national holidays (syukujitsu.csv)",
+    "https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv",
+    "csv",
+    parse,
 )

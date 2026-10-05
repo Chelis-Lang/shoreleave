@@ -1,0 +1,37 @@
+# nyse: New York Stock Exchange, holidays and trading hours
+# horizon 2026-01-01..2028-12-31
+# main: https://www.nyse.com/markets/hours-calendars retrieved 2026-10-05 sha256 79602f7be5a8f1d39c2b1cac4dd02c4c07f18cf9f92d70602834069154719bad
+2026-01-01	holiday	New Year’s Day
+2026-01-19	holiday	Martin Luther King, Jr. Day
+2026-02-16	holiday	Washington's Birthday
+2026-04-03	holiday	Good Friday
+2026-05-25	holiday	Memorial Day
+2026-06-19	holiday	Juneteenth National Independence Day
+2026-07-03	holiday	Independence Day
+2026-09-07	holiday	Labor Day
+2026-11-26	holiday	Thanksgiving Day
+2026-11-27	early-close	early close (closes at 1:00 p.m. (1:15 p.m. for eligible options) Eastern Time)
+2026-12-24	early-close	early close (closes at 1:00 p.m. (1:15 p.m. for eligible options) Eastern Time)
+2026-12-25	holiday	Christmas Day
+2027-01-01	holiday	New Year’s Day
+2027-01-18	holiday	Martin Luther King, Jr. Day
+2027-02-15	holiday	Washington's Birthday
+2027-03-26	holiday	Good Friday
+2027-05-31	holiday	Memorial Day
+2027-06-18	holiday	Juneteenth National Independence Day
+2027-07-05	holiday	Independence Day
+2027-09-06	holiday	Labor Day
+2027-11-25	holiday	Thanksgiving Day
+2027-11-26	early-close	early close (closes at 1:00 p.m. (1:15 p.m. for eligible options) Eastern Time)
+2027-12-24	holiday	Christmas Day
+2028-01-17	holiday	Martin Luther King, Jr. Day
+2028-02-21	holiday	Washington's Birthday
+2028-04-14	holiday	Good Friday
+2028-05-29	holiday	Memorial Day
+2028-06-19	holiday	Juneteenth National Independence Day
+2028-07-03	early-close	early close (closes at 1:00 p.m. (1:15 p.m. for eligible options) Eastern Time)
+2028-07-04	holiday	Independence Day
+2028-09-04	holiday	Labor Day
+2028-11-23	holiday	Thanksgiving Day
+2028-11-24	early-close	early close (closes at 1:00 p.m. (1:15 p.m. for eligible options) Eastern Time)
+2028-12-25	holiday	Christmas Day

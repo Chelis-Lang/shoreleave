@@ -44,6 +44,16 @@ class Exclusion:
     reason: str
 
 
+@dataclasses.dataclass(frozen=True, order=True)
+class EarlyClose:
+    """A trading day that closes early. `BusinessCalendar` has no half-day kind, so
+    it stays a business day; the detail keeps the published closing time."""
+
+    day: datetime.date
+    name: str
+    detail: str
+
+
 @dataclasses.dataclass(frozen=True)
 class Published:
     """What one source publishes: the holidays inside its horizon, both ends inclusive."""
@@ -52,6 +62,7 @@ class Published:
     valid_until: datetime.date
     holidays: tuple[Holiday, ...]
     exclusions: tuple[Exclusion, ...] = ()
+    early_closes: tuple[EarlyClose, ...] = ()
 
     def __post_init__(self) -> None:
         if self.valid_from > self.valid_until:
@@ -62,14 +73,35 @@ class Published:
 
 
 @dataclasses.dataclass(frozen=True)
+class Part:
+    """One fetched document of a source, stored as `upstream/<key>/<name>.<suffix>`."""
+
+    name: str
+    url: str
+    suffix: str
+
+
+@dataclasses.dataclass(frozen=True)
 class Source:
-    """One upstream publication and the parser that reads its snapshot."""
+    """One calendar's upstream publications and the parser that reads their snapshots."""
 
     key: str
     authority: str
-    url: str
-    suffix: str
-    parse: Callable[[bytes], Published]
+    parts: tuple[Part, ...]
+    parse: Callable[[dict[str, bytes]], Published]
+
+
+def single_part(key: str, authority: str, url: str, suffix: str, parse: Callable[[bytes], Published]) -> Source:
+    """A source published as one document."""
+    return Source(key, authority, (Part("main", url, suffix),), lambda raws: parse(raws["main"]))
+
+
+def require_names(names: list[str], allowed: frozenset[str], what: str) -> None:
+    """Fail on any holiday name outside the calendar's allowlist, so an entry of
+    another calendar sharing the page, or a new kind of entry, stops regeneration."""
+    unknown = sorted({name.replace("\u2019", "'") for name in names} - allowed)
+    if unknown:
+        raise ValueError(f"{what}: unknown holiday name(s) {unknown}; review and extend the allowlist")
 
 
 def year_horizon(first_year: int, last_year: int) -> tuple[datetime.date, datetime.date]:
@@ -82,6 +114,7 @@ def published_years(
     last_year: int,
     exclusions: list[Exclusion] | None = None,
     valid_until: datetime.date | None = None,
+    early_closes: list[EarlyClose] | None = None,
 ) -> Published:
     """Keep the holidays inside the published years; record the rest as exclusions."""
     valid_from, year_end = year_horizon(first_year, last_year)
@@ -99,7 +132,11 @@ def published_years(
             kept.append(holiday)
         else:
             dropped.append(Exclusion(day, holiday.name, "outside the published horizon"))
-    return Published(valid_from, until, tuple(kept), tuple(sorted(dropped, key=lambda e: (e.day, e.name))))
+    closes = tuple(sorted(set(early_closes or [])))
+    overlap = {c.day for c in closes} & set(names)
+    if overlap:
+        raise ValueError(f"days both closed and closing early: {sorted(overlap)}")
+    return Published(valid_from, until, tuple(kept), tuple(sorted(dropped, key=lambda e: (e.day, e.name))), closes)
 
 
 WEEKDAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]

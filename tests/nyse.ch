@@ -1,16 +1,16 @@
-module BedHolidays.Tests.Nyse
+module Tides.Tests.Nyse
 import Std.Datetime (Date, date)
 import Std.Datetime.Business (is_business_day, try_is_business_day, business_calendar_valid_from, business_calendar_valid_until)
 import Std.Test (assert_eq)
-import BedHolidays.Nyse (nyse, nyse_projected, try_nyse_projected, nyse_rule_holidays, nyse_weekmask, nyse_source_url)
-import BedHolidays.Published.Nyse (nyse_published_holidays)
-import BedHolidays.Rules (contains_day)
-import BedHolidays.TestSupport.Support (mismatches_by_year, holidays_of, all_closed)
+import Tides.Nyse (nyse, nyse_projected, try_nyse_projected, nyse_rule_holidays, nyse_weekmask, nyse_source_urls)
+import Tides.Published.Nyse (nyse_published_holidays)
+import Tides.Rules (contains_day)
+import Tides.TestSupport.Support (mismatches_by_year, holidays_of, all_closed)
 def test_horizon_is_the_published_span() -> unit ! { Test } = {
   cal = nyse()
   _ = assert_eq(business_calendar_valid_from(cal), date(2026i64, 1i64, 1i64), "valid_from")
   _ = assert_eq(business_calendar_valid_until(cal), date(2028i64, 12i64, 31i64), "valid_until")
-  assert_eq(nyse_source_url(), "https://www.nyse.com/markets/hours-calendars", "url")
+  assert_eq(index(nyse_source_urls(), 0i64), "https://www.nyse.com/markets/hours-calendars", "url")
 }
 def test_every_published_closure_is_closed() -> unit ! { Test } = {
   cal = nyse()
@@ -24,6 +24,13 @@ def test_market_not_federal_holidays() -> unit ! { Test } = {
   _ = assert_eq(is_business_day(cal, date(2026i64, 4i64, 3i64)), false, "Good Friday 2026")
   _ = assert_eq(is_business_day(cal, date(2026i64, 10i64, 12i64)), true, "Columbus Day trades")
   assert_eq(is_business_day(cal, date(2026i64, 11i64, 11i64)), true, "Veterans Day trades")
+}
+-- Early closes are trading days: a BusinessCalendar has no half-day kind.
+def test_early_closes_are_business_days() -> unit ! { Test } = {
+  cal = nyse()
+  _ = assert_eq(is_business_day(cal, date(2026i64, 11i64, 27i64)), true, "day after Thanksgiving 2026, 1:00 p.m. close")
+  _ = assert_eq(is_business_day(cal, date(2026i64, 12i64, 24i64)), true, "Christmas Eve 2026, 1:00 p.m. close")
+  assert_eq(is_business_day(cal, date(2028i64, 7i64, 3i64)), true, "3 July 2028, 1:00 p.m. close")
 }
 -- Rule 7.2: a Saturday 1 January closes no day, because 31 December ends the year.
 def test_saturday_new_year_closes_no_day() -> unit ! { Test } = {

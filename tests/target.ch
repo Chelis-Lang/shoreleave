@@ -1,15 +1,15 @@
-module BedHolidays.Tests.Target
+module Tides.Tests.Target
 import Std.Datetime (Date, date)
 import Std.Datetime.Business (is_business_day, try_is_business_day, business_calendar_valid_from, business_calendar_valid_until)
 import Std.Test (assert_eq)
-import BedHolidays.Target (target, target_projected, try_target_projected, target_rule_holidays, target_weekmask, target_source_url)
-import BedHolidays.Published.Target (target_published_holidays)
-import BedHolidays.TestSupport.Support (mismatches_by_year, holidays_of, all_closed)
+import Tides.Target (target, target_projected, try_target_projected, target_rule_holidays, target_weekmask, target_source_urls)
+import Tides.Published.Target (target_published_holidays)
+import Tides.TestSupport.Support (mismatches_by_year, holidays_of, all_closed)
 def test_horizon_is_the_published_span() -> unit ! { Test } = {
   cal = target()
   _ = assert_eq(business_calendar_valid_from(cal), date(2026i64, 1i64, 1i64), "valid_from")
   _ = assert_eq(business_calendar_valid_until(cal), date(2028i64, 12i64, 31i64), "valid_until")
-  assert_eq(target_source_url(), "https://www.ecb.europa.eu/ecb/contacts/working-hours/html/index.en.html", "url")
+  assert_eq(index(target_source_urls(), 0i64), "https://www.ecb.europa.eu/ecb/contacts/working-hours/html/index.en.html", "url")
 }
 def test_every_closing_day_is_closed() -> unit ! { Test } = {
   cal = target()

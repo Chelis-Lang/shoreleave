@@ -9,8 +9,8 @@ import pathlib
 import re
 import sys
 
-from bed_holidays_sync import emit, snapshot
-from bed_holidays_sync.sources import SOURCES
+from tides_sync import emit, snapshot
+from tides_sync.sources import SOURCES
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 
@@ -33,9 +33,11 @@ def generated_files(root: pathlib.Path) -> dict[pathlib.Path, str]:
     files: dict[pathlib.Path, str] = {}
     snapshots = []
     for key, source in SOURCES.items():
-        snap, raw = snapshot.load(upstream, source)
-        snapshots.append(snap)
-        files[root / "src" / "published" / f"{emit.pascal(key).lower()}.ch"] = emit.published_module(source, snap, source.parse(raw))
+        snaps, raws = snapshot.load(upstream, source)
+        snapshots.extend(snaps.values())
+        published = source.parse(raws)
+        files[root / "src" / "published" / f"{emit.pascal(key).lower()}.ch"] = emit.published_module(source, snaps, published)
+        files[upstream / key / "parsed.txt"] = emit.parsed_listing(source, snaps, published)
     version = package_version(root)
     prefix = expected_version_prefix(snapshots)
     if not version.startswith(prefix) or not re.fullmatch(r"\d+", version[len(prefix):]):
@@ -45,7 +47,7 @@ def generated_files(root: pathlib.Path) -> dict[pathlib.Path, str]:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(prog="bed_holidays_sync")
+    parser = argparse.ArgumentParser(prog="tides_sync")
     parser.add_argument("--root", type=pathlib.Path, default=ROOT)
     commands = parser.add_subparsers(dest="command", required=True)
     fetch = commands.add_parser("fetch", help="download and pin fresh snapshots")
@@ -56,9 +58,14 @@ def main(argv: list[str] | None = None) -> int:
     root = args.root.resolve()
     if args.command == "fetch":
         today = datetime.date.today()
+        unknown = sorted(set(args.keys) - set(SOURCES))
+        if unknown:
+            parser.error(f"unknown source(s) {unknown}; choose from {sorted(SOURCES)}")
         for key in args.keys or list(SOURCES):
-            snap = snapshot.store(root / "upstream", SOURCES[key], snapshot.fetch_bytes(SOURCES[key].url), today)
-            print(f"{key}: {snap.file} {snap.sha256[:12]} retrieved {snap.retrieved}")
+            source = SOURCES[key]
+            raws = {part.name: snapshot.fetch_bytes(part.url) for part in source.parts}
+            for name, snap in snapshot.store(root / "upstream", source, raws, today).items():
+                print(f"{key}/{name}: {snap.file} {snap.sha256[:12]} retrieved {snap.retrieved}")
         return 0
     files = generated_files(root)
     stale = [path for path, text in files.items() if not path.exists() or path.read_text(encoding="utf-8") != text]

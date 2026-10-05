@@ -58,4 +58,4 @@ jobs:
         run: uv run --frozen --python 3.11 pytest -q
       - name: Generated modules match the pinned snapshots
         working-directory: sync
-        run: uv run --frozen --python 3.11 python -m bed_holidays_sync check
+        run: uv run --frozen --python 3.11 python -m tides_sync check

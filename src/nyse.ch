@@ -1,9 +1,9 @@
-module BedHolidays.Nyse
+module Tides.Nyse
 import Std.Datetime (Date, Monday, Thursday, date)
 import Std.Datetime.Business (Weekmask, BusinessCalendar, business_calendar)
-import BedHolidays.Rules (projected_calendar, try_projected_calendar, monday_to_friday, saturday_back_sunday_forward, sunday_forward_to_monday, is_saturday, nth_weekday, last_weekday, good_friday)
-import BedHolidays.Published.Nyse (nyse_published_holidays, nyse_published_from, nyse_published_until, nyse_published_source, nyse_published_source_url, nyse_published_retrieved, nyse_published_sha256)
-export (nyse, nyse_projected, try_nyse_projected, nyse_rule_holidays, nyse_weekmask, nyse_projection_last_year, nyse_source, nyse_source_url, nyse_retrieved, nyse_snapshot_sha256)
+import Tides.Rules (projected_calendar, try_projected_calendar, monday_to_friday, saturday_back_sunday_forward, sunday_forward_to_monday, is_saturday, nth_weekday, last_weekday, good_friday)
+import Tides.Published.Nyse (nyse_published_holidays, nyse_published_from, nyse_published_until, nyse_published_source, nyse_published_source_urls, nyse_published_retrieved, nyse_published_sha256s)
+export (nyse, nyse_projected, try_nyse_projected, nyse_rule_holidays, nyse_weekmask, nyse_projection_last_year, nyse_source, nyse_source_urls, nyse_retrieved, nyse_snapshot_sha256s)
 -- New York Stock Exchange full-day closures, as nyse.com publishes them, on a
 -- Monday to Friday week. Early closes are trading days. Under NYSE Rule 7.2 a
 -- Saturday holiday closes the Friday before it unless that Friday ends a monthly or
@@ -24,6 +24,6 @@ def nyse_projection_last_year() -> i64 = 9998i64
 def nyse_projected(until_year: i64) -> BusinessCalendar = projected_calendar("nyse_projected", nyse_weekmask(), nyse_published_holidays(), nyse_published_from(), nyse_published_until(), nyse_rule_holidays, until_year, nyse_projection_last_year())
 def try_nyse_projected(until_year: i64) -> Option[BusinessCalendar] = try_projected_calendar(nyse_weekmask(), nyse_published_holidays(), nyse_published_from(), nyse_published_until(), nyse_rule_holidays, until_year, nyse_projection_last_year())
 def nyse_source() -> string = nyse_published_source()
-def nyse_source_url() -> string = nyse_published_source_url()
+def nyse_source_urls() -> List[string] = nyse_published_source_urls()
 def nyse_retrieved() -> Date = nyse_published_retrieved()
-def nyse_snapshot_sha256() -> string = nyse_published_sha256()
+def nyse_snapshot_sha256s() -> List[string] = nyse_published_sha256s()

@@ -1,50 +1,84 @@
 {
   "england_and_wales": {
-    "url": "https://www.gov.uk/bank-holidays.json",
-    "retrieved": "2026-10-05",
-    "file": "england_and_wales.json",
-    "sha256": "538b3482c28b85ecd2db606a0d5ae6ad17248900b6498700ce0a48d26a3ecde6"
+    "main": {
+      "url": "https://www.gov.uk/bank-holidays.json",
+      "retrieved": "2026-10-05",
+      "file": "england_and_wales/main.json",
+      "sha256": "538b3482c28b85ecd2db606a0d5ae6ad17248900b6498700ce0a48d26a3ecde6"
+    }
   },
   "hong_kong": {
-    "url": "https://www.1823.gov.hk/common/ical/en.json",
-    "retrieved": "2026-10-05",
-    "file": "hong_kong.json",
-    "sha256": "8d797fb380825eec3f53fe456cc85ad30e2f91635675081abb671eca3bfd757d"
+    "main": {
+      "url": "https://www.1823.gov.hk/common/ical/en.json",
+      "retrieved": "2026-10-05",
+      "file": "hong_kong/main.json",
+      "sha256": "8d797fb380825eec3f53fe456cc85ad30e2f91635675081abb671eca3bfd757d"
+    }
   },
   "japan_bank": {
-    "url": "https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv",
-    "retrieved": "2026-10-05",
-    "file": "japan_bank.csv",
-    "sha256": "cec37a743c96995cdb9cb52b685c9003634682a9b0e1a640a6b9b96881fe964a"
+    "main": {
+      "url": "https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv",
+      "retrieved": "2026-10-05",
+      "file": "japan_bank/main.csv",
+      "sha256": "cec37a743c96995cdb9cb52b685c9003634682a9b0e1a640a6b9b96881fe964a"
+    }
   },
   "new_south_wales": {
-    "url": "https://www.nsw.gov.au/about-nsw/public-holidays",
-    "retrieved": "2026-10-05",
-    "file": "new_south_wales.html",
-    "sha256": "f4332a5a07f05e96e0531b137621f31593101e110a137ca720c4e8a813cbb9c1"
+    "main": {
+      "url": "https://www.nsw.gov.au/about-nsw/public-holidays",
+      "retrieved": "2026-10-05",
+      "file": "new_south_wales/main.html",
+      "sha256": "f4332a5a07f05e96e0531b137621f31593101e110a137ca720c4e8a813cbb9c1"
+    }
   },
   "nyse": {
-    "url": "https://www.nyse.com/markets/hours-calendars",
-    "retrieved": "2026-10-05",
-    "file": "nyse.html",
-    "sha256": "79602f7be5a8f1d39c2b1cac4dd02c4c07f18cf9f92d70602834069154719bad"
+    "main": {
+      "url": "https://www.nyse.com/markets/hours-calendars",
+      "retrieved": "2026-10-05",
+      "file": "nyse/main.html",
+      "sha256": "79602f7be5a8f1d39c2b1cac4dd02c4c07f18cf9f92d70602834069154719bad"
+    }
   },
   "sifma": {
-    "url": "https://www.sifma.org/resources/general/holiday-schedule/",
-    "retrieved": "2026-10-05",
-    "file": "sifma.html",
-    "sha256": "67b51cff36d8049e52a02769403f9b4c36202e1420bb8cc56b0fe5413088921b"
+    "main": {
+      "url": "https://www.sifma.org/resources/general/holiday-schedule/",
+      "retrieved": "2026-10-05",
+      "file": "sifma/main.html",
+      "sha256": "67b51cff36d8049e52a02769403f9b4c36202e1420bb8cc56b0fe5413088921b"
+    }
   },
   "target": {
-    "url": "https://www.ecb.europa.eu/ecb/contacts/working-hours/html/index.en.html",
-    "retrieved": "2026-10-05",
-    "file": "target.html",
-    "sha256": "ee7ee2d44a95ca77b1ab742a8b55f75748034498e460826fad460affbbf15be3"
+    "main": {
+      "url": "https://www.ecb.europa.eu/ecb/contacts/working-hours/html/index.en.html",
+      "retrieved": "2026-10-05",
+      "file": "target/main.html",
+      "sha256": "f4681e040259131a274d76e793b7af0eae1cc39d8c1e8def69637da5f5ea6ead"
+    }
   },
   "us_federal": {
-    "url": "https://www.opm.gov/policy-data-oversight/pay-leave/federal-holidays/",
-    "retrieved": "2026-10-05",
-    "file": "us_federal.html",
-    "sha256": "bb4eed76a256e58a1f0f1b3074eeef5f381b2def722ff101efb04fefeb192e60"
+    "fr-2024-31143": {
+      "url": "https://www.federalregister.gov/documents/full_text/text/2024/12/26/2024-31143.txt",
+      "retrieved": "2026-10-05",
+      "file": "us_federal/fr-2024-31143.txt",
+      "sha256": "0796ea4789f02d314058685b7fb7eeb0b611c9b27af5dcdec871ccb9ad38f9f6"
+    },
+    "fr-2024-31766": {
+      "url": "https://www.federalregister.gov/documents/full_text/text/2025/01/03/2024-31766.txt",
+      "retrieved": "2026-10-05",
+      "file": "us_federal/fr-2024-31766.txt",
+      "sha256": "df569271ff016e293c9cf2844d0311e6edd6c90c3a6656370c01ea7014634aae"
+    },
+    "fr-2025-23847": {
+      "url": "https://www.federalregister.gov/documents/full_text/text/2025/12/23/2025-23847.txt",
+      "retrieved": "2026-10-05",
+      "file": "us_federal/fr-2025-23847.txt",
+      "sha256": "50e78139b51ae2493fcbae83381a2bce40dcee4ab895471acfdf7bf3bd67b9ed"
+    },
+    "opm": {
+      "url": "https://www.opm.gov/policy-data-oversight/pay-leave/federal-holidays/holidays.ics",
+      "retrieved": "2026-10-05",
+      "file": "us_federal/opm.ics",
+      "sha256": "c63812c70c1ac73d58dc67b882458071ce85a9a41e98e7ea34c58da925f019c1"
+    }
   }
 }

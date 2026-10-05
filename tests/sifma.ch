@@ -1,17 +1,17 @@
-module BedHolidays.Tests.Sifma
+module Tides.Tests.Sifma
 import Std.Datetime (Date, date)
 import Std.Datetime.Business (is_business_day, try_is_business_day, business_calendar_valid_from, business_calendar_valid_until)
 import Std.Test (assert_eq)
-import BedHolidays.Sifma (sifma, sifma_projected, try_sifma_projected, sifma_rule_holidays, sifma_weekmask, sifma_source_url)
-import BedHolidays.Published.Sifma (sifma_published_holidays)
-import BedHolidays.TestSupport.Support (normalized_year, observed_rule_days, diff_text, holidays_of, all_closed)
+import Tides.Sifma (sifma, sifma_projected, try_sifma_projected, sifma_rule_holidays, sifma_weekmask, sifma_source_urls)
+import Tides.Published.Sifma (sifma_published_holidays)
+import Tides.TestSupport.Support (normalized_year, observed_rule_days, diff_text, holidays_of, all_closed)
 def published_year(year: i64) -> List[Date] = normalized_year(sifma_weekmask(), sifma_published_holidays(), year)
 def rule_year(year: i64) -> List[Date] = observed_rule_days(sifma_weekmask(), sifma_rule_holidays, year)
 def test_horizon_is_the_published_span() -> unit ! { Test } = {
   cal = sifma()
   _ = assert_eq(business_calendar_valid_from(cal), date(2026i64, 1i64, 1i64), "valid_from")
   _ = assert_eq(business_calendar_valid_until(cal), date(2027i64, 12i64, 31i64), "valid_until")
-  assert_eq(sifma_source_url(), "https://www.sifma.org/resources/general/holiday-schedule/", "url")
+  assert_eq(index(sifma_source_urls(), 0i64), "https://www.sifma.org/resources/general/holiday-schedule/", "url")
 }
 def test_every_published_close_is_closed() -> unit ! { Test } = {
   cal = sifma()
@@ -31,6 +31,15 @@ def test_early_closes_are_business_days() -> unit ! { Test } = {
   _ = assert_eq(is_business_day(cal, date(2027i64, 12i64, 31i64)), true, "Saturday 1 January 2028 closes no day")
   _ = assert_eq(is_business_day(cal, date(2027i64, 3i64, 26i64)), false, "Good Friday 2027 is a full close")
   assert_eq(is_business_day(cal, date(2027i64, 12i64, 24i64)), false, "Saturday Christmas 2027 closes Friday 24th")
+}
+-- The page's UK and Japan sections do not leak into the US calendar.
+def test_uk_and_japan_recommendations_are_not_us_closes() -> unit ! { Test } = {
+  cal = sifma()
+  _ = assert_eq(is_business_day(cal, date(2026i64, 4i64, 6i64)), true, "UK Easter Monday")
+  _ = assert_eq(is_business_day(cal, date(2026i64, 5i64, 4i64)), true, "UK May Day")
+  _ = assert_eq(is_business_day(cal, date(2026i64, 8i64, 31i64)), true, "UK Summer Bank Holiday")
+  _ = assert_eq(is_business_day(cal, date(2026i64, 12i64, 28i64)), true, "UK Boxing Day substitute")
+  assert_eq(is_business_day(cal, date(2026i64, 1i64, 12i64)), true, "Japan Coming of Age Day")
 }
 def test_queries_outside_the_horizon_are_none() -> unit ! { Test } = {
   cal = sifma()

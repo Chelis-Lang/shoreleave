@@ -1,9 +1,9 @@
-module BedHolidays.EnglandAndWales
+module Tides.EnglandAndWales
 import Std.Datetime (Date, Monday)
 import Std.Datetime.Business (Weekmask, BusinessCalendar, business_calendar)
-import BedHolidays.Rules (projected_calendar, try_projected_calendar, monday_to_friday, new_year_with_additional_day, good_friday, easter_monday, nth_weekday, last_weekday, christmas_and_boxing_with_additional_days)
-import BedHolidays.Published.EnglandAndWales (england_and_wales_published_holidays, england_and_wales_published_from, england_and_wales_published_until, england_and_wales_published_source, england_and_wales_published_source_url, england_and_wales_published_retrieved, england_and_wales_published_sha256)
-export (england_and_wales, england_and_wales_projected, try_england_and_wales_projected, england_and_wales_rule_holidays, england_and_wales_weekmask, england_and_wales_projection_last_year, england_and_wales_source, england_and_wales_source_url, england_and_wales_retrieved, england_and_wales_snapshot_sha256)
+import Tides.Rules (projected_calendar, try_projected_calendar, monday_to_friday, new_year_with_additional_day, good_friday, easter_monday, nth_weekday, last_weekday, christmas_and_boxing_with_additional_days)
+import Tides.Published.EnglandAndWales (england_and_wales_published_holidays, england_and_wales_published_from, england_and_wales_published_until, england_and_wales_published_source, england_and_wales_published_source_urls, england_and_wales_published_retrieved, england_and_wales_published_sha256s)
+export (england_and_wales, england_and_wales_projected, try_england_and_wales_projected, england_and_wales_rule_holidays, england_and_wales_weekmask, england_and_wales_projection_last_year, england_and_wales_source, england_and_wales_source_urls, england_and_wales_retrieved, england_and_wales_snapshot_sha256s)
 -- England and Wales bank holidays, as gov.uk publishes them, on a Monday to Friday
 -- week. The projection's rules are those of the Banking and Financial Dealings Act
 -- 1971 and the annual royal proclamations: 1 January, Good Friday, Easter Monday,
@@ -25,6 +25,6 @@ def england_and_wales_projection_last_year() -> i64 = 9998i64
 def england_and_wales_projected(until_year: i64) -> BusinessCalendar = projected_calendar("england_and_wales_projected", england_and_wales_weekmask(), england_and_wales_published_holidays(), england_and_wales_published_from(), england_and_wales_published_until(), england_and_wales_rule_holidays, until_year, england_and_wales_projection_last_year())
 def try_england_and_wales_projected(until_year: i64) -> Option[BusinessCalendar] = try_projected_calendar(england_and_wales_weekmask(), england_and_wales_published_holidays(), england_and_wales_published_from(), england_and_wales_published_until(), england_and_wales_rule_holidays, until_year, england_and_wales_projection_last_year())
 def england_and_wales_source() -> string = england_and_wales_published_source()
-def england_and_wales_source_url() -> string = england_and_wales_published_source_url()
+def england_and_wales_source_urls() -> List[string] = england_and_wales_published_source_urls()
 def england_and_wales_retrieved() -> Date = england_and_wales_published_retrieved()
-def england_and_wales_snapshot_sha256() -> string = england_and_wales_published_sha256()
+def england_and_wales_snapshot_sha256s() -> List[string] = england_and_wales_published_sha256s()

@@ -68,3 +68,37 @@ def captioned_tables(document: str) -> list[tuple[str, list[list[str]]]]:
     parser.feed(document)
     parser.close()
     return list(zip(parser.captions, parser.tables))
+
+
+class _TextParser(html.parser.HTMLParser):
+    BLOCKS = {"p", "div", "li", "tr", "td", "th", "h1", "h2", "h3", "h4", "h5", "h6", "br", "table"}
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.parts: list[str] = []
+        self._skip = 0
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag in ("script", "style"):
+            self._skip += 1
+        elif tag in self.BLOCKS:
+            self.parts.append("\n")
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag in ("script", "style"):
+            self._skip = max(0, self._skip - 1)
+        elif tag in self.BLOCKS:
+            self.parts.append("\n")
+
+    def handle_data(self, data: str) -> None:
+        if self._skip == 0:
+            self.parts.append(data)
+
+
+def text_blocks(document: str) -> list[str]:
+    """The visible text of a document, one nonempty block per entry."""
+    parser = _TextParser()
+    parser.feed(document)
+    parser.close()
+    blocks = (normalize_space(block) for block in "".join(parser.parts).split("\n"))
+    return [block for block in blocks if block]

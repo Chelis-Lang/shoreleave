@@ -1,7 +1,7 @@
 schema = "1"
 
 [package]
-name = "bed-holidays"
+name = "tides"
 version = "2026.1005.0"
 
 [[dependencies]]

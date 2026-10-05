@@ -1,9 +1,9 @@
 schema = "3"
 
 [package]
-name = "bed-holidays"
+name = "tides"
 version = "2026.1005.0"
 compiler = "=0.18.13"
-module_prefix = "BedHolidays"
+module_prefix = "Tides"
 resolver = "2"
 additional_sources = ["testsupport", "demos"]

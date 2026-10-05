@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from bed_holidays_sync.model import Source
-from bed_holidays_sync.sources import (
+from tides_sync.model import Source
+from tides_sync.sources import (
     england_and_wales,
     hong_kong,
     japan_bank,

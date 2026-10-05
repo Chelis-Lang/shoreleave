@@ -1,9 +1,9 @@
-module BedHolidays.Sifma
+module Tides.Sifma
 import Std.Datetime (Date, Monday, Thursday, date)
 import Std.Datetime.Business (Weekmask, BusinessCalendar, business_calendar)
-import BedHolidays.Rules (projected_calendar, try_projected_calendar, monday_to_friday, saturday_back_sunday_forward, sunday_forward_to_monday, is_saturday, is_weekend, nth_weekday, last_weekday)
-import BedHolidays.Published.Sifma (sifma_published_holidays, sifma_published_from, sifma_published_until, sifma_published_source, sifma_published_source_url, sifma_published_retrieved, sifma_published_sha256)
-export (sifma, sifma_projected, try_sifma_projected, sifma_rule_holidays, sifma_weekmask, sifma_projection_last_year, sifma_source, sifma_source_url, sifma_retrieved, sifma_snapshot_sha256)
+import Tides.Rules (projected_calendar, try_projected_calendar, monday_to_friday, saturday_back_sunday_forward, sunday_forward_to_monday, is_saturday, is_weekend, nth_weekday, last_weekday)
+import Tides.Published.Sifma (sifma_published_holidays, sifma_published_from, sifma_published_until, sifma_published_source, sifma_published_source_urls, sifma_published_retrieved, sifma_published_sha256s)
+export (sifma, sifma_projected, try_sifma_projected, sifma_rule_holidays, sifma_weekmask, sifma_projection_last_year, sifma_source, sifma_source_urls, sifma_retrieved, sifma_snapshot_sha256s)
 -- The full-day closes SIFMA recommends for the US bond market, on a Monday to
 -- Friday week. Early closes are trading days. SIFMA decides each year whether Good
 -- Friday is a full close or only an early close, so a projection omits Good Friday.
@@ -23,6 +23,6 @@ def sifma_projection_last_year() -> i64 = 9998i64
 def sifma_projected(until_year: i64) -> BusinessCalendar = projected_calendar("sifma_projected", sifma_weekmask(), sifma_published_holidays(), sifma_published_from(), sifma_published_until(), sifma_rule_holidays, until_year, sifma_projection_last_year())
 def try_sifma_projected(until_year: i64) -> Option[BusinessCalendar] = try_projected_calendar(sifma_weekmask(), sifma_published_holidays(), sifma_published_from(), sifma_published_until(), sifma_rule_holidays, until_year, sifma_projection_last_year())
 def sifma_source() -> string = sifma_published_source()
-def sifma_source_url() -> string = sifma_published_source_url()
+def sifma_source_urls() -> List[string] = sifma_published_source_urls()
 def sifma_retrieved() -> Date = sifma_published_retrieved()
-def sifma_snapshot_sha256() -> string = sifma_published_sha256()
+def sifma_snapshot_sha256s() -> List[string] = sifma_published_sha256s()
