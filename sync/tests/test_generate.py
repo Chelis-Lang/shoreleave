@@ -7,6 +7,7 @@ import hashlib
 import json
 import re
 import shutil
+import subprocess
 
 import pytest
 
@@ -113,3 +114,18 @@ def test_a_changed_date_shows_in_the_listing(tmp_path) -> None:
     assert "2028-08-29\tholiday\tSummer bank holiday" in listing
     assert "2028-08-28" not in listing
     assert cli.main(["--root", str(tmp_path), "check"]) == 1
+
+
+def test_every_snapshot_and_listing_is_tracked() -> None:
+    # An ignore rule can shadow a required artifact (an unanchored `target/`
+    # once hid upstream/target/); a fresh clone would then lack it.
+    manifest = json.loads((UPSTREAM / "manifest.json").read_text(encoding="utf-8"))
+    required = ["upstream/manifest.json"]
+    required += [f"upstream/{entry['file']}" for parts in manifest.values() for entry in parts.values()]
+    required += [f"upstream/{key}/parsed.txt" for key in SOURCES]
+    untracked = [
+        path
+        for path in required
+        if subprocess.run(["git", "-C", str(ROOT), "ls-files", "--error-unmatch", path], capture_output=True).returncode != 0
+    ]
+    assert untracked == []

@@ -1,5 +1,5 @@
 # Build and test output.
-target/
+/target/
 /out/
 *.o
 *.a
