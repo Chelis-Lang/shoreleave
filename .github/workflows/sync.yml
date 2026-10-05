@@ -1,8 +1,10 @@
 name: weekly sync
-# Re-fetches every upstream source, regenerates the package, and opens or updates
-# a pull request when any calendar's entries changed. A source that fails to fetch
-# or parse (a changed page layout, an unknown holiday name, a Tentative entry)
-# fails the run and opens or updates an issue.
+# Re-fetches every upstream source, regenerates the package, and keeps the
+# sync/weekly pull request equal to the result: opened or updated when any
+# calendar's entries differ from main, closed with its branch deleted when they no
+# longer do (an upstream revert, or the change merged). A source that fails to
+# fetch or parse (a changed page layout, an unknown holiday name, a Tentative
+# entry) fails the run and opens or updates an issue.
 on:
   schedule:
     - cron: "23 6 * * 1"
@@ -42,13 +44,17 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.CHELIS_RELEASE_TOKEN }}
         run: chelisup install 0.18.13
       - name: Fetch every source
+        id: fetch
         working-directory: sync
         run: |
           set -euo pipefail
           uv run --frozen --python 3.11 python -m shoreleave_sync fetch 2>&1 | tee "$RUNNER_TEMP/fetch.log"
       - name: Regenerate
+        id: generate
         working-directory: sync
-        run: uv run --frozen --python 3.11 python -m shoreleave_sync generate
+        run: |
+          set -euo pipefail
+          uv run --frozen --python 3.11 python -m shoreleave_sync generate 2>&1 | tee "$RUNNER_TEMP/generate.log"
       - name: Detect changed calendars
         id: changes
         run: |
@@ -71,24 +77,30 @@ jobs:
             chelis test tests_neg/ --expect neg
             (cd sync && uv run --frozen --python 3.11 pytest -q)
           } 2>&1 | tee "$RUNNER_TEMP/tests.log"
+      # The body and the pull-request step run whenever generation succeeded: with no
+      # difference from main the action closes an open sync pull request and deletes
+      # its branch, so a stale pull request never outlives an upstream revert.
       - name: Write the pull-request body
-        if: steps.changes.outputs.changed == 'true'
         env:
           TESTS: ${{ steps.tests.outcome }}
         run: |
           set -euo pipefail
           (cd sync && uv run --frozen --python 3.11 python -m shoreleave_sync pr-body --output "$RUNNER_TEMP/body.md")
+          case "$TESTS" in
+            success | failure) tests="$TESTS" ;;
+            *) tests="not run, since no entries changed" ;;
+          esac
           {
             echo
-            echo "### Tests on the regenerated package: ${TESTS}"
+            echo "### Tests on the regenerated package: ${tests}"
             echo
             echo "A pull request opened with the default token does not start CI; this run's"
             echo "test log is at ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}."
             echo "Close and reopen the pull request to run CI on it."
           } >> "$RUNNER_TEMP/body.md"
-      - name: Open or update the sync pull request
-        if: steps.changes.outputs.changed == 'true'
-        uses: peter-evans/create-pull-request@v7
+      - name: Open, update or close the sync pull request
+        id: pull-request
+        uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # v7.0.11
         with:
           token: ${{ github.token }}
           branch: sync/weekly
@@ -103,15 +115,32 @@ jobs:
         if: failure()
         env:
           GH_TOKEN: ${{ github.token }}
+          FETCH: ${{ steps.fetch.outcome }}
+          GENERATE: ${{ steps.generate.outcome }}
+          PULL_REQUEST: ${{ steps.pull-request.outcome }}
         run: |
           set -euo pipefail
           run_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
           {
             echo "The weekly sync failed: ${run_url}"
             echo
-            echo '```'
-            if [ -f "$RUNNER_TEMP/fetch.log" ]; then grep -E '^FAILED ' "$RUNNER_TEMP/fetch.log" || tail -n 40 "$RUNNER_TEMP/fetch.log"; else echo "the run failed before fetching"; fi
-            echo '```'
+            if [ "$FETCH" = "failure" ]; then
+              echo "Fetching failed for these sources:"
+              echo '```'
+              grep -E '^FAILED ' "$RUNNER_TEMP/fetch.log" || tail -n 40 "$RUNNER_TEMP/fetch.log"
+              echo '```'
+            elif [ "$GENERATE" = "failure" ]; then
+              echo "Regeneration failed:"
+              echo '```'
+              tail -n 40 "$RUNNER_TEMP/generate.log"
+              echo '```'
+            elif [ "$PULL_REQUEST" = "failure" ]; then
+              echo "Opening, updating or closing the sync pull request failed; see the run log."
+            elif [ -z "$FETCH" ] || [ "$FETCH" = "skipped" ]; then
+              echo "A step before fetching failed (checkout or toolchain install); see the run log."
+            else
+              echo "A step after regeneration failed; see the run log."
+            fi
           } > "$RUNNER_TEMP/issue.md"
           number="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "\"${FAILURE_TITLE}\" in:title" --json number,title --jq "map(select(.title == \"${FAILURE_TITLE}\")) | .[0].number // empty")"
           if [ -n "$number" ]; then

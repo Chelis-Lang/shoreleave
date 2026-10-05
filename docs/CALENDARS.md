@@ -137,9 +137,11 @@ needs its new value.
 ## Weekly sync and releases
 
 The `weekly sync` workflow runs every Monday and on demand. It fetches and
-regenerates as above. When any calendar's entries changed, it runs the tests and opens
-or updates the `sync/weekly` pull request, whose body lists the changed listing lines
-and the test outcome. When a source fails, the run fails and opens or comments on the
+regenerates as above, then keeps the `sync/weekly` pull request equal to the result.
+When any calendar's entries differ from `main`, it runs the tests and opens or updates
+that pull request, whose body lists the changed listing lines and the test outcome;
+when they no longer differ (an upstream revert, or the change merged), it closes the
+pull request and deletes its branch. When a source fails, the run fails and opens or comments on the
 "Weekly sync failed" issue. It uses the default token for the pull request and the
 issue, so the repository must allow GitHub Actions to create pull requests; a pull
 request opened that way does not start CI until it is closed and reopened.

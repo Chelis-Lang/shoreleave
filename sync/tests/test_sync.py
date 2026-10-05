@@ -123,3 +123,13 @@ def test_pr_body_command_reads_the_working_tree(root, tmp_path_factory) -> None:
     output = tmp_path_factory.mktemp("body") / "body.md"
     assert cli.main(["--root", str(root), "pr-body", "--output", str(output)]) == 0
     assert "+2029-01-01\tholiday\tNew Year's Day" in output.read_text(encoding="utf-8")
+
+
+def test_a_corrupt_pinned_snapshot_is_a_reported_failure(root, monkeypatch, capsys) -> None:
+    monkeypatch.setattr(snapshot, "fetch_bytes", serve(root))
+    pinned = root / "upstream" / "nyse" / "main.html"
+    pinned.write_bytes(pinned.read_bytes() + b" ")
+    assert cli.main(["--root", str(root), "fetch"]) == 1
+    captured = capsys.readouterr()
+    assert "FAILED nyse: ValueError" in captured.err and "SHA-256" in captured.err
+    assert "target: unchanged" in captured.out

@@ -84,10 +84,11 @@ def main(argv: list[str] | None = None) -> int:
             try:
                 raws = {part.name: snapshot.fetch_bytes(part.url) for part in source.parts}
                 fresh = source.parse(raws)
+                keep = not args.force and unchanged(root / "upstream", source, fresh)
             except Exception as error:  # every source is tried; each failure is reported
                 failures.append(f"{key}: {type(error).__name__}: {error}")
                 continue
-            if not args.force and unchanged(root / "upstream", source, fresh):
+            if keep:
                 print(f"{key}: unchanged; keeping the snapshot retrieved {retrieved_text(root / 'upstream', source)}")
                 continue
             for name, snap in snapshot.store(root / "upstream", source, raws, today).items():
