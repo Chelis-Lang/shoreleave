@@ -1,5 +1,5 @@
 # Build and test output.
-target/
+/target/
 /out/
 *.o
 *.a
@@ -10,3 +10,6 @@ reef.lock.tmp
 __pycache__/
 *.pyc
 .pytest_cache/
+.reef-write.lock
+.*.reef-tmp-*
+.*.reef-backup-*

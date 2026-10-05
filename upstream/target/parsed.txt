@@ -1,0 +1,45 @@
+# target: European Central Bank, TARGET closing days (Guideline (EU) 2022/912)
+# horizon 2026-01-01..2028-12-31
+# main: https://www.ecb.europa.eu/ecb/contacts/working-hours/html/index.en.html retrieved 2026-10-05 sha256 f4681e040259131a274d76e793b7af0eae1cc39d8c1e8def69637da5f5ea6ead
+2026-01-01	holiday	New Year's Day
+2026-04-03	holiday	Good Friday
+2026-04-06	holiday	Easter Monday
+2026-05-01	holiday	Labour Day
+2026-05-09	excluded	Anniversary of Robert Schuman's Declaration (ECB office holiday, not a TARGET closing day)
+2026-05-14	excluded	Ascension Day (ECB office holiday, not a TARGET closing day)
+2026-05-25	excluded	Whit Monday (ECB office holiday, not a TARGET closing day)
+2026-06-04	excluded	Corpus Christi (ECB office holiday, not a TARGET closing day)
+2026-10-03	excluded	Day of German Unity (ECB office holiday, not a TARGET closing day)
+2026-11-01	excluded	All Saints' Day (ECB office holiday, not a TARGET closing day)
+2026-12-24	excluded	Christmas Eve (ECB office holiday, not a TARGET closing day)
+2026-12-25	holiday	Christmas Day
+2026-12-26	holiday	Christmas Holiday
+2026-12-31	excluded	New Year's Eve (ECB office holiday, not a TARGET closing day)
+2027-01-01	holiday	New Year's Day
+2027-03-26	holiday	Good Friday
+2027-03-29	holiday	Easter Monday
+2027-05-01	holiday	Labour Day
+2027-05-06	excluded	Ascension Day (ECB office holiday, not a TARGET closing day)
+2027-05-09	excluded	Anniversary of Robert Schuman's Declaration (ECB office holiday, not a TARGET closing day)
+2027-05-17	excluded	Whit Monday (ECB office holiday, not a TARGET closing day)
+2027-05-27	excluded	Corpus Christi (ECB office holiday, not a TARGET closing day)
+2027-10-03	excluded	Day of German Unity (ECB office holiday, not a TARGET closing day)
+2027-11-01	excluded	All Saints' Day (ECB office holiday, not a TARGET closing day)
+2027-12-24	excluded	Christmas Eve (ECB office holiday, not a TARGET closing day)
+2027-12-25	holiday	Christmas Day
+2027-12-26	holiday	Christmas Holiday
+2027-12-31	excluded	New Year's Eve (ECB office holiday, not a TARGET closing day)
+2028-01-01	holiday	New Year's Day
+2028-04-14	holiday	Good Friday
+2028-04-17	holiday	Easter Monday
+2028-05-01	holiday	Labour Day
+2028-05-09	excluded	Anniversary of Robert Schuman's Declaration (ECB office holiday, not a TARGET closing day)
+2028-05-25	excluded	Ascension Day (ECB office holiday, not a TARGET closing day)
+2028-06-05	excluded	Whit Monday (ECB office holiday, not a TARGET closing day)
+2028-06-15	excluded	Corpus Christi (ECB office holiday, not a TARGET closing day)
+2028-10-03	excluded	Day of German Unity (ECB office holiday, not a TARGET closing day)
+2028-11-01	excluded	All Saints' Day (ECB office holiday, not a TARGET closing day)
+2028-12-24	excluded	Christmas Eve (ECB office holiday, not a TARGET closing day)
+2028-12-25	holiday	Christmas Day
+2028-12-26	holiday	Christmas Holiday
+2028-12-31	excluded	New Year's Eve (ECB office holiday, not a TARGET closing day)
