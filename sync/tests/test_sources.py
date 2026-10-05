@@ -257,7 +257,8 @@ def test_japan_unknown_name_is_rejected() -> None:
 
 def test_sifma_without_its_section_is_rejected() -> None:
     raw = raw_snapshot("sifma").replace(b"U.S. Holiday Recommendations", b"U.S. Holiday Schedule")
-    with pytest.raises(ValueError):
+    assert raw != raw_snapshot("sifma")
+    with pytest.raises(ValueError, match=r"expected one 'U.S. Holiday Recommendations' section in its page data, found 0"):
         parse_one("sifma", raw)
 
 

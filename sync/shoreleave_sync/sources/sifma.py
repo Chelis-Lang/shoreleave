@@ -108,7 +108,10 @@ def card_name(heading: str) -> str:
 
 def parse(raw: bytes) -> Published:
     rows = payload_rows(raw.decode("utf-8"))
-    (section,) = [key for key, row in rows.items() if SECTION in json.dumps(row, ensure_ascii=False)]
+    sections = [key for key, row in rows.items() if SECTION in json.dumps(row, ensure_ascii=False)]
+    if len(sections) != 1:
+        raise ValueError(f"SIFMA page: expected one {SECTION!r} section in its page data, found {len(sections)}")
+    (section,) = sections
     holidays: list[Holiday] = []
     closes: list[EarlyClose] = []
     years: set[int] = set()

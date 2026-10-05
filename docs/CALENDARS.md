@@ -52,6 +52,16 @@ than the list behind them:
   module's comments. SIFMA entries marked "Tentative" stop generation unless the
   generator lists them explicitly.
 
+## Announced closures are current only as of retrieval
+
+Some closures are announced for one occasion: the executive orders closing federal
+agencies that `us_federal()` reads from the Federal Register, and the one-day
+closures NYSE and SIFMA announce. A calendar holds the ones published by its
+`<calendar>_retrieved()` date and no later. A closure announced after that date,
+even for a day inside the horizon, is absent until the calendar is fetched and
+regenerated, and for `us_federal()` until its order is added to the generator's
+list of closure orders.
+
 ## Projections
 
 `<calendar>_projected(until_year)` is the published calendar extended through
