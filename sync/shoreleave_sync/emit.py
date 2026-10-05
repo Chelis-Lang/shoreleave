@@ -82,21 +82,26 @@ def published_module(source: Source, snaps: dict[str, Snapshot], published: Publ
     return "\n".join(lines) + "\n"
 
 
-def parsed_listing(source: Source, snaps: dict[str, Snapshot], published: Published) -> str:
-    """Every dated entry the parse produced, one per line, so a regeneration that
-    adds, removes or reclassifies a date shows as a line in review."""
-    lines = [
-        f"# {source.key}: {source.authority}",
-        f"# horizon {published.valid_from.isoformat()}..{published.valid_until.isoformat()}",
-    ]
-    for part in source.parts:
-        snap = snaps[part.name]
-        lines.append(f"# {part.name}: {snap.url} retrieved {snap.retrieved.isoformat()} sha256 {snap.sha256}")
+def listing_entries(published: Published) -> list[str]:
+    """The horizon and every dated entry of a parse, one line each: what a
+    calendar says, without where and when it was read."""
     entries = [(h.day, "holiday", h.name) for h in published.holidays]
     entries += [(e.day, "excluded", f"{e.name} ({e.reason})") for e in published.exclusions]
     entries += [(c.day, "early-close", f"{c.name} ({c.detail})") for c in published.early_closes]
-    for day, kind, text in sorted(entries):
-        lines.append(f"{day.isoformat()}\t{kind}\t{comment_text(text)}")
+    lines = [f"# horizon {published.valid_from.isoformat()}..{published.valid_until.isoformat()}"]
+    lines += [f"{day.isoformat()}\t{kind}\t{comment_text(text)}" for day, kind, text in sorted(entries)]
+    return lines
+
+
+def parsed_listing(source: Source, snaps: dict[str, Snapshot], published: Published) -> str:
+    """Every dated entry the parse produced, one per line, so a regeneration that
+    adds, removes or reclassifies a date shows as a line in review."""
+    entries = listing_entries(published)
+    lines = [f"# {source.key}: {source.authority}", entries[0]]
+    for part in source.parts:
+        snap = snaps[part.name]
+        lines.append(f"# {part.name}: {snap.url} retrieved {snap.retrieved.isoformat()} sha256 {snap.sha256}")
+    lines += entries[1:]
     return "\n".join(lines) + "\n"
 
 
@@ -105,7 +110,7 @@ def provenance_module(version: str) -> str:
         "module Shoreleave.Provenance",
         "export (shoreleave_version)",
         HEADER,
-        "-- The package version: the newest retrieval date as year.MMDD, then a release counter.",
+        "-- The package version, a semantic version; each calendar's data date is its <calendar>_retrieved().",
         f"def shoreleave_version() -> string = {string_literal(version)}",
     ]
     return "\n".join(lines) + "\n"

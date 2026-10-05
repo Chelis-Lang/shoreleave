@@ -7,7 +7,8 @@ that span fails `domain` (or returns `None` from a `try_` form) instead of guess
 
 `shoreleave` is one of the `bed` packages, the seabed family of external-data packages:
 data whose truth is set outside any program, synced from its upstream on the upstream's schedule. Each
-`bed` package lives in its own repository and is versioned by its data.
+`bed` package lives in its own repository and has its own semantic version; each
+calendar reports when its data was retrieved.
 
 [`docs/CALENDARS.md`](docs/CALENDARS.md) lists the calendars, their sources and
 horizons, what each projection omits, the provenance values, and how to regenerate
