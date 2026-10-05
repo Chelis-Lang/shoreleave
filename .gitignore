@@ -1,0 +1,12 @@
+# Build and test output.
+target/
+/out/
+*.o
+*.a
+reef.lock.tmp
+
+# Python environments and caches of the sync generator.
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/

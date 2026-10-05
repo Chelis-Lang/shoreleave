@@ -1,0 +1,38 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  CHELIS_TAG: v0.18.13
+  CHELIS_VERSION: 0.18.13
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          # Full history so `conform bump-check --base origin/main` can resolve
+          # the base pin. The default shallow clone does not fetch origin/main,
+          # which would make the pin-bump guard fail closed.
+          fetch-depth: 0
+      - name: Bootstrap chelisup
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh release download "$CHELIS_TAG" --repo Chelis-Lang/chelis --pattern chelisup.sh --output - | sh
+          echo "$HOME/.chelis/bin" >> "$GITHUB_PATH"
+      - name: Install chelis toolchain
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: chelisup install 0.18.13
+      - name: Conformance audit
+        run: chelis reef conform audit
+      - name: Pin-bump guard
+        run: chelis reef conform bump-check --base origin/main
+      - name: Negative tests
+        run: chelis test tests_neg/ --expect neg

@@ -1,0 +1,45 @@
+name: chelis pin bump
+on:
+  schedule:
+    - cron: "0 8 * * 1"   # weekly; adjust to your cadence
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Resolve latest chelis release
+        id: latest
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          latest="$(gh release view --repo Chelis-Lang/chelis --json tagName -q .tagName | sed 's/^v//')"
+          echo "version=${latest}" >> "$GITHUB_OUTPUT"
+      - name: Bootstrap chelisup
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh release download "v${{ steps.latest.outputs.version }}" --repo Chelis-Lang/chelis --pattern chelisup.sh --output - | sh
+          echo "$HOME/.chelis/bin" >> "$GITHUB_PATH"
+      - name: Install chelis toolchain
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: chelisup install "${{ steps.latest.outputs.version }}"
+      - name: Run the Pin Bump Checklist
+        run: chelis reef conform bump "${{ steps.latest.outputs.version }}"
+      - name: Open bump PR
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: chelis-bump/${{ steps.latest.outputs.version }}
+          title: "chelis pin bump -> ${{ steps.latest.outputs.version }}"
+          body: |
+            Mechanical `chelis reef conform bump` change set. CI runs the full
+            checklist (conform audit + blocked/negative probes); do not merge red.
+          commit-message: "chore: bump chelis pin to ${{ steps.latest.outputs.version }}"

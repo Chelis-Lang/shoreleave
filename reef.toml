@@ -1,0 +1,8 @@
+schema = "3"
+
+[package]
+name = "bed-holidays"
+version = "0.1.0"
+compiler = "=0.18.13"
+module_prefix = "BedHolidays"
+resolver = "2"
