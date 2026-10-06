@@ -2,7 +2,7 @@ schema = "1"
 
 [package]
 name = "shoreleave"
-version = "0.1.0"
+version = "0.1.1"
 
 [[dependencies]]
 name = "chelis-std"
