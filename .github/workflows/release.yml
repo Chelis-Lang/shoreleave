@@ -12,8 +12,8 @@ permissions:
   contents: write
 
 env:
-  CHELIS_TAG: v0.18.13
-  CHELIS_VERSION: 0.18.13
+  CHELIS_TAG: v0.19.0
+  CHELIS_VERSION: 0.19.0
   PACKAGE_NAME: shoreleave
 
 jobs:
@@ -21,8 +21,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      # Chelis-Lang/chelis is private: CHELIS_RELEASE_TOKEN has contents: read on
-      # it and installs the release toolchain. Publishing uses the default token.
+      # CHELIS_RELEASE_TOKEN installs the release toolchain. Publishing uses
+      # the default token.
       - name: Bootstrap chelisup
         env:
           GH_TOKEN: ${{ secrets.CHELIS_RELEASE_TOKEN }}
@@ -33,7 +33,7 @@ jobs:
       - name: Install chelis toolchain
         env:
           GITHUB_TOKEN: ${{ secrets.CHELIS_RELEASE_TOKEN }}
-        run: chelisup install 0.18.13
+        run: chelisup install 0.19.0
       - name: Verify toolchain
         run: test "$(chelis --version)" = "chelis ${CHELIS_VERSION}"
       - name: Read the package version

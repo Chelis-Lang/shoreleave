@@ -49,7 +49,8 @@ def test_manifest_records_every_part_of_every_source() -> None:
 
 def test_package_version_is_plain_semver() -> None:
     assert re.fullmatch(r"\d+\.\d+\.\d+", cli.package_version(ROOT))
-    assert 'def shoreleave_version() -> string = "0.1.0"' in (ROOT / "src" / "provenance.ch").read_text(encoding="utf-8")
+    version = cli.package_version(ROOT)
+    assert f'def shoreleave_version() -> string = "{version}"' in (ROOT / "src" / "provenance.ch").read_text(encoding="utf-8")
 
 
 # Negative twins.
