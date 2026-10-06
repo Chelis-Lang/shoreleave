@@ -52,7 +52,7 @@ than the list behind them:
   module's comments. SIFMA entries marked "Tentative" stop generation unless the
   generator lists them explicitly.
 
-## Announced closures
+## Announced closures are current only as of retrieval
 
 Some closures are announced for one occasion: the executive orders closing federal
 agencies that `us_federal()` reads from the Federal Register, and the one-day
