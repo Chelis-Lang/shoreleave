@@ -20,8 +20,8 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  CHELIS_TAG: v0.18.13
-  CHELIS_VERSION: 0.18.13
+  CHELIS_TAG: v0.19.0
+  CHELIS_VERSION: 0.19.0
   FAILURE_TITLE: "Weekly sync failed"
 
 jobs:
@@ -30,8 +30,8 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: astral-sh/setup-uv@v6
-      # Chelis-Lang/chelis is private: CHELIS_RELEASE_TOKEN only installs the
-      # toolchain. The pull request and the issue use the default token.
+      # CHELIS_RELEASE_TOKEN installs the toolchain. The pull request and the
+      # issue use the default token.
       - name: Bootstrap chelisup
         env:
           GH_TOKEN: ${{ secrets.CHELIS_RELEASE_TOKEN }}
@@ -42,7 +42,7 @@ jobs:
       - name: Install chelis toolchain
         env:
           GITHUB_TOKEN: ${{ secrets.CHELIS_RELEASE_TOKEN }}
-        run: chelisup install 0.18.13
+        run: chelisup install 0.19.0
       - name: Fetch every source
         id: fetch
         working-directory: sync

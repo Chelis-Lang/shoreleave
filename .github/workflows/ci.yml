@@ -6,14 +6,13 @@ on:
     branches: [main]
 
 env:
-  CHELIS_TAG: v0.18.13
-  CHELIS_VERSION: 0.18.13
+  CHELIS_TAG: v0.19.0
+  CHELIS_VERSION: 0.19.0
 
 jobs:
   gate:
     runs-on: ubuntu-latest
-    # Chelis-Lang/chelis is private: CHELIS_RELEASE_TOKEN is a token with
-    # contents: read on it, which installs the release toolchain.
+    # CHELIS_RELEASE_TOKEN grants access to release assets for installation.
     steps:
       - uses: actions/checkout@v6
         with:
@@ -31,7 +30,7 @@ jobs:
       - name: Install chelis toolchain
         env:
           GITHUB_TOKEN: ${{ secrets.CHELIS_RELEASE_TOKEN }}
-        run: chelisup install 0.18.13
+        run: chelisup install 0.19.0
       - name: Conformance audit
         run: chelis reef conform audit
       - name: Pin-bump guard
