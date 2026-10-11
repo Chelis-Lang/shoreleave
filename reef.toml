@@ -2,7 +2,7 @@ schema = "3"
 
 [package]
 name = "shoreleave"
-version = "0.1.2"
+version = "0.1.3"
 compiler = "=0.19.2"
 module_prefix = "Shoreleave"
 resolver = "2"
