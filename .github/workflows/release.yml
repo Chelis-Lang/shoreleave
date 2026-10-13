@@ -12,8 +12,8 @@ permissions:
   contents: write
 
 env:
-  CHELIS_TAG: v0.19.3
-  CHELIS_VERSION: 0.19.3
+  CHELIS_TAG: v0.19.4
+  CHELIS_VERSION: 0.19.4
   PACKAGE_NAME: shoreleave
 
 jobs:

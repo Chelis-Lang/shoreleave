@@ -3,7 +3,7 @@ schema = "3"
 [package]
 name = "shoreleave"
 version = "0.1.4"
-compiler = "=0.19.3"
+compiler = "=0.19.4"
 module_prefix = "Shoreleave"
 resolver = "2"
 additional_sources = ["testsupport", "demos"]
