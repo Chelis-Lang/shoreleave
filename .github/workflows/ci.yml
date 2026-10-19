@@ -6,8 +6,8 @@ on:
     branches: [main]
 
 env:
-  CHELIS_TAG: v0.19.4
-  CHELIS_VERSION: 0.19.4
+  CHELIS_TAG: v0.21.0
+  CHELIS_VERSION: 0.21.0
 
 jobs:
   gate:
@@ -39,6 +39,8 @@ jobs:
         run: chelis reef conform audit
       - name: Pin-bump guard
         run: chelis reef conform bump-check --base origin/main
+      - name: Build package from the release lock
+        run: chelis reef build --no-auto-fetch
       - name: Format and lint
         run: |
           set -euo pipefail
