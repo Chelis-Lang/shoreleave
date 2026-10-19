@@ -14,6 +14,12 @@ calendar reports when its data was retrieved.
 horizons, what each projection omits, the provenance values, and how to regenerate
 the data.
 
+## License
+
+Shoreleave's code is licensed under the [MIT License](LICENSE). Calendar
+snapshots under `upstream/` come from the sources listed in
+[`docs/CALENDARS.md`](docs/CALENDARS.md) and retain their source terms.
+
 ## Toolchain
 
 The package pins its compiler in `reef.toml`. Install that toolchain with
