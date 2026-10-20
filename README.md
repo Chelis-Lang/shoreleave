@@ -17,7 +17,7 @@ the data.
 ## Use a calendar
 
 Install the compiler selected by [`reef.toml`](reef.toml) with
-[`chelisup`](https://github.com/Chelis-Lang/chelis#installation), then install
+[`chelisup`](https://github.com/Chelis-Lang/chelis#install), then install
 the package:
 
 ```sh
