@@ -14,6 +14,43 @@ calendar reports when its data was retrieved.
 horizons, what each projection omits, the provenance values, and how to regenerate
 the data.
 
+## Use a calendar
+
+Install the compiler selected by [`reef.toml`](reef.toml) with
+[`chelisup`](https://github.com/Chelis-Lang/chelis#install), then install
+the package:
+
+```sh
+chelis reef install --from-github Chelis-Lang/shoreleave@v0.1.5
+```
+
+Add it to your project's manifest:
+
+```toml
+[dependencies]
+shoreleave = { version = "=0.1.5" }
+```
+
+Import a calendar from `Shoreleave.<Module>` and use the business-day operations
+in `Std.Datetime.Business`. For example, `Shoreleave.Nyse.nyse()` provides the
+published NYSE calendar. The [calendar reference](docs/CALENDARS.md) lists each
+module, published horizon, and projection function.
+
+## Run the example
+
+From this checkout:
+
+```sh
+chelis eval --file demos/digest.ch
+chelis build --target c --output target/digest demos/digest.ch
+target/digest/digest
+```
+
+The evaluator and native executable print the same calendar digest: horizons,
+holiday counts, business-day counts, offsets, and modified-following rolls.
+The final values demonstrate rejected out-of-horizon queries and invalid
+projections. The full program is [`demos/digest.ch`](demos/digest.ch).
+
 ## License
 
 Shoreleave's code is licensed under the [MIT License](LICENSE). Calendar
