@@ -2,16 +2,16 @@ schema = "1"
 
 [package]
 name = "shoreleave"
-version = "0.1.5"
+version = "0.1.6"
 
 [[dependencies]]
 name = "chelis-std"
 version = "0.4.0"
-compiler = "=0.21.0"
-archive_sha256 = "ce2d947d683ae9804c5847f4598e6cb35aa77f3cda51dd5785f18804e1311488"
-shell_sha256 = "68b2629d57e1266289762940e1089f85b3e45e771bd995b0adc758b8a3dee70d"
+compiler = "=0.22.0"
+archive_sha256 = "8953b00b67617fac91ebf6a0a30eef0117fb4e827d3e0193d26b4299f79b10e6"
+shell_sha256 = "e583a00c8eb9d69a0637abd1a04d1adad0d16e4197944e0bf27b5dd6447c5554"
 
 [dependencies.source]
 kind = "bundled"
-compiler_version = "0.21.0"
+compiler_version = "0.22.0"
 

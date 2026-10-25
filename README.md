@@ -21,14 +21,14 @@ Install the compiler selected by [`reef.toml`](reef.toml) with
 the package:
 
 ```sh
-chelis reef install --from-github Chelis-Lang/shoreleave@v0.1.5
+chelis reef install --from-github Chelis-Lang/shoreleave@v0.1.6
 ```
 
 Add it to your project's manifest:
 
 ```toml
 [dependencies]
-shoreleave = { version = "=0.1.5" }
+shoreleave = { version = "=0.1.6" }
 ```
 
 Import a calendar from `Shoreleave.<Module>` and use the business-day operations
