@@ -34,9 +34,9 @@
   "nyse": {
     "main": {
       "url": "https://www.nyse.com/markets/hours-calendars",
-      "retrieved": "2026-10-05",
+      "retrieved": "2026-10-26",
       "file": "nyse/main.html",
-      "sha256": "79602f7be5a8f1d39c2b1cac4dd02c4c07f18cf9f92d70602834069154719bad"
+      "sha256": "3960e64cd7c9581c2e7a6d3f602342344eba1fac7b7476d51ddabb32b343fe11"
     }
   },
   "sifma": {
