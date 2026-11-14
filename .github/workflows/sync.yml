@@ -20,8 +20,8 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  CHELIS_TAG: v0.22.1
-  CHELIS_VERSION: 0.22.1
+  CHELIS_TAG: v0.23.1
+  CHELIS_VERSION: 0.23.1
   FAILURE_TITLE: "Weekly sync failed"
 
 jobs:
