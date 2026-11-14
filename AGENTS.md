@@ -24,7 +24,7 @@ each in its own repository with its own semantic version, independent of the com
 - Every rule change keeps `tests/` comparing the rules with every published year
   they govern, naming the exact days an announced or lunar year differs by.
 
-<!-- BEGIN CHELIS MANAGED BLOCK: agents-inheritance chelis@0.22.1 (sha256:163cc50981ddaf47) -->
+<!-- BEGIN CHELIS MANAGED BLOCK: agents-inheritance chelis@0.23.1 (sha256:ea0f59ebce0c155a) -->
 # Chelis Agent Contract
 
 Keep this file concise and relevant to every agent working in this repository.
@@ -168,7 +168,7 @@ It carries the brief shape, the worktree-reuse rules, and the verify mode.
 ### Pull Request Lifecycle
 
 The mechanics are expensive to get wrong, and
-[the PR-author guide](https://github.com/Chelis-Lang/chelis/blob/v0.22.1/docs/guard_changes_for_pr_authors.md) owns them. Read it before
+[the PR-author guide](https://github.com/Chelis-Lang/chelis/blob/v0.23.1/docs/guard_changes_for_pr_authors.md) owns them. Read it before
 starting and again before merging, and use the acknowledgement lines it requires.
 
 1. Fetch `origin/main` and base the branch on it. Run `python3 scripts/gate.py --fast`,
@@ -347,7 +347,7 @@ are symlinks to `agent-skills/`.
   `.venv/bin/python scripts/changelog.py build --version VERSION --date YYYY-MM-DD`,
   reviews the preview, repeats with `--write`, and commits the notes, fragment
   deletions, and version bump together, never recreating `[Unreleased]`.
-  [The fragment contract](https://github.com/Chelis-Lang/chelis/blob/v0.22.1/changelog.d/README.md) owns the format.
+  [The fragment contract](https://github.com/Chelis-Lang/chelis/blob/v0.23.1/changelog.d/README.md) owns the format.
 - **Commit messages.** Plain conventional commits with the configured human author. No
   `Claude-Session` trailers, Codex or Claude attribution, AI co-authorship markers, or
   AI-session links in commit messages or PR bodies. The tracked commit-msg hook rejects
@@ -370,7 +370,7 @@ are symlinks to `agent-skills/`.
   parseable, decompiler output round-trips, executable examples stay executable after
   canonical formatting, status docs claim no more than the repo proves.
 - **Manual gates.** Every manual acceptance gate has a documented command, expected
-  success condition, and owning phase in [`docs/manual_gates.md`](https://github.com/Chelis-Lang/chelis/blob/v0.22.1/docs/manual_gates.md);
+  success condition, and owning phase in [`docs/manual_gates.md`](https://github.com/Chelis-Lang/chelis/blob/v0.23.1/docs/manual_gates.md);
   if default CI does not run it, the docs say so. Ignored tests are allowed only when
   they clearly mirror a documented manual gate or an environment-dependent prerequisite.
 - **CLI surface.** Commands are product surface, not wrappers around library tests. Test
@@ -465,7 +465,7 @@ when picking one up.
 
 ### Build And Gate Commands
 
-[`docs/local_gate.md`](https://github.com/Chelis-Lang/chelis/blob/v0.22.1/docs/local_gate.md) records everything `scripts/gate.py` does.
+[`docs/local_gate.md`](https://github.com/Chelis-Lang/chelis/blob/v0.23.1/docs/local_gate.md) records everything `scripts/gate.py` does.
 The rules:
 
 ```sh
@@ -500,13 +500,13 @@ python3 scripts/gate.py --list         # the canonical command list with ownersh
   code breakage; rerun on a quiet machine.
 - HIP manual gates run only through `scripts/hip_test.py` (or `chelis-hip-test` in
   Devenv); plain `cargo test --ignored` segfaults at exit and looks like a regression.
-  [`docs/local_hip_environment.md`](https://github.com/Chelis-Lang/chelis/blob/v0.22.1/docs/local_hip_environment.md) is the runbook,
-  and [`docs/local_macos_environment.md`](https://github.com/Chelis-Lang/chelis/blob/v0.22.1/docs/local_macos_environment.md) covers the
+  [`docs/local_hip_environment.md`](https://github.com/Chelis-Lang/chelis/blob/v0.23.1/docs/local_hip_environment.md) is the runbook,
+  and [`docs/local_macos_environment.md`](https://github.com/Chelis-Lang/chelis/blob/v0.23.1/docs/local_macos_environment.md) covers the
   macOS first-exec stall (chelis#356).
 
 ## Subagents
 
-[`docs/investigations/agent_contract_rationale.md`](https://github.com/Chelis-Lang/chelis/blob/v0.22.1/docs/investigations/agent_contract_rationale.md)
+[`docs/investigations/agent_contract_rationale.md`](https://github.com/Chelis-Lang/chelis/blob/v0.23.1/docs/investigations/agent_contract_rationale.md)
 holds the measurements behind these rules.
 
 - Every subagent prompt names the delivery mechanism and the complete expected report.
@@ -530,11 +530,8 @@ holds the measurements behind these rules.
   here, not a certified safe width, and it is a separate budget from the CPU one above.
 - Every spawn names its model tier and says in one clause why that tier fits: the
   expensive tier for judgement whose errors are costly to detect, the cheap tier for
-  mechanical work such as waiting on CI, polling, or transcribing a result. The
-  orchestrator states its own context size in the message that announces a spawn.
-- Every brief states a numeric report-length budget, and a numeric context budget except
-  for red-team rounds. An agent that will exceed its context budget says so and returns
-  what it has.
+  mechanical work such as waiting on CI, polling, or transcribing a result.
+- Every brief states a numeric report-length budget.
 - A brief says which facts the orchestrator has already verified, against what head, and
   that the agent must not re-derive them, and it names what the agent still has to
   establish itself.
@@ -631,9 +628,9 @@ workspace, or Docker.
   there. One trap it enforces at compile time: `reef setup` subprocesses the real
   `chelisup` binary, never `chelisup::install::install` in-process, because that helper
   copies `current_exe()` over the shim. Design:
-  [`spec/design/chelis_packaging_and_install.md`](https://github.com/Chelis-Lang/chelis/blob/v0.22.1/spec/design/chelis_packaging_and_install.md).
+  [`spec/design/chelis_packaging_and_install.md`](https://github.com/Chelis-Lang/chelis/blob/v0.23.1/spec/design/chelis_packaging_and_install.md).
 - **Downstream shells** inherit this complete contract through a stamped managed block
-  and must satisfy [`spec/design/shell_repo_contract.md`](https://github.com/Chelis-Lang/chelis/blob/v0.22.1/spec/design/shell_repo_contract.md),
+  and must satisfy [`spec/design/shell_repo_contract.md`](https://github.com/Chelis-Lang/chelis/blob/v0.23.1/spec/design/shell_repo_contract.md),
   shipped in the toolchain as `chelis reef conform`. Full inheritance is the default,
   but each shell decides which portions apply. Shell-owned additions stay outside the
   block and should remain when they are relevant and current. To omit an inherited
